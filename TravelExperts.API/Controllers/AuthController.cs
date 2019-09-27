@@ -53,6 +53,7 @@ namespace TravelExperts.API.Controllers
         [HttpPost("login")]
         public async Task<IActionResult> Login(CustomerForLoginDto customerForLoginDto)
         {
+            
             // Makes username lowercase
             customerForLoginDto.Username = customerForLoginDto.Username.ToLower();
 
