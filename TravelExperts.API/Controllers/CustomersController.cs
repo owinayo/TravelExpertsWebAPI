@@ -20,6 +20,7 @@ namespace TravelExperts.API.Controllers
             this.context = context;
         }
         // GET api/customers
+        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {

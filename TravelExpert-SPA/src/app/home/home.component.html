@@ -1,25 +1,33 @@
-
-<section class="hero is-large is-primary has-background">
+<div class="">
+  <section class="hero is-large is-primary has-background">
     <img class="hero-background is-transparent" src="../../assets/images/drink-on-beach.jpg" />
-  <div class="hero-body">
-    <div class="container">
-      <h1 class="title has-text-centered">
-        Welcome to Travel Experts
-      </h1>
-      <h2 class="subtitle has-text-centered">
-        Primary subtitle
-      </h2>
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title has-text-centered">
+          Welcome to Travel Experts
+        </h1>
+        <h2 class="subtitle has-text-centered">
+          Primary subtitle
+        </h2>
+      </div>
+
+      <section class="section" *ngIf="!registerMode">
+        <div class="container">
+          <div></div>
+          <div class="buttons is-centered">
+            <span class="button is-info" (click)="toggleRegisterMode()">Register</span>
+            <span class="button is-info">View Packages</span>
+          </div>
+        </div>
+      </section>
+      <section class="section" *ngIf="registerMode">
+          <div class="container">
+            <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
+          </div>
+        </section>
     </div>
 
-    <section class="section">
-      <div class="container">
-        <div></div>
-        <div class="buttons is-centered">
-          <span class="button is-info">Register</span>
-          <span class="button is-info">View Packages</span>
-        </div>
-      </div>
-    </section>
+  </section>
 
-  </div>
-</section>
+
+</div>

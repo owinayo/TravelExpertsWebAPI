@@ -2,6 +2,7 @@
 .hero.has-background {
   position: relative;
   overflow: hidden;
+  
 }
 .hero-background {
   position: absolute;
