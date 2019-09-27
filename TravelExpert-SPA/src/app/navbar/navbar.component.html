@@ -1,4 +1,4 @@
-<nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+<nav class="navbar is-fixed-top is-info" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="https://bulma.io">
       <img id="navLogo" src="../../assets/images/logo.png" >
@@ -26,12 +26,12 @@
 
     <div class="navbar-end">
       <div class="navbar-item">
-        <form>
+        <form #loginForm="ngForm" (ngSubmit)="login()">
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input" type="text" placeholder="Username">
+                  <input class="input is-primary" type="text" required placeholder="Username"  [(ngModel)]="model.Username" name="Username">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -39,7 +39,7 @@
               </div>
               <div class="field">
                 <p class="control is-expanded has-icons-left has-icons-right">
-                  <input class="input" type="password" placeholder="Password" >
+                  <input class="input is-primary" type="password" required placeholder="Password" [(ngModel)]="model.Password" name="Password">
                   <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                   </span>
@@ -47,9 +47,9 @@
               </div>
             </div>
             <div class="buttons">
-              <a class="button is-success">
+              <button [disabled]="!loginForm.valid" type="submit" class="button is-success">
                 <strong>Log in</strong>
-              </a>
+              </button>
             </div>
           </div>
         </form>
