@@ -8,7 +8,7 @@ using TravelExperts.API.Data;
 
 namespace TravelExperts.API.Controllers
 {
-    // https://localhost:5001/api/values
+    // http://localhost:5000/api/values
     [Route("api/[controller]")]
     [ApiController]
     public class ValuesController : ControllerBase
