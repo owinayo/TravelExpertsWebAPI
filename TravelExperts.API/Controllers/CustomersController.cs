@@ -2,13 +2,14 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelExperts.API.Data;
 
 namespace TravelExperts.API.Controllers
 {
-    // http://localhost:5000/api/controllers
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -18,7 +19,7 @@ namespace TravelExperts.API.Controllers
         {
             this.context = context;
         }
-        // GET api/values
+        // GET api/customers
         [HttpGet]
         public async Task<IActionResult> GetCustomers()
         {
@@ -27,7 +28,8 @@ namespace TravelExperts.API.Controllers
             return Ok(customers);
         }
 
-        // GET api/values/5
+        // GET api/customers/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
