@@ -1,6 +1,10 @@
 
 document.addEventListener('click', function (e) {
-  if (hasClass(e.target, 'dropdownButton')) {
+  var target =e.target;
+  var parent = target.parentElement;
+  var parentsParent = parent.parentElement;
+
+  if (hasClass(e.target, 'dropdownButton') || hasClass(parent, 'dropdownButton') || hasClass(parentsParent, 'dropdownButton')) {
     var dropdown = document.querySelector('#dropdownNav');
     e.stopPropagation();
     dropdown.classList.toggle('is-active');
