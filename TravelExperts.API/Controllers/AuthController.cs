@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Logging;
 using Microsoft.IdentityModel.Tokens;
 using TravelExperts.API.Data;
 using TravelExperts.API.Dtos;
@@ -79,13 +80,15 @@ namespace TravelExperts.API.Controllers
             // Creates the token descriptor using our claims, credentials, and expires from 6 hours
             var tokenDescriptor = new SecurityTokenDescriptor{
                 Subject = new ClaimsIdentity(claims),
-                Expires = DateTime.Now.AddHours(6),
+                Expires = DateTime.Now.AddDays(1),
                 SigningCredentials = creds
+                
             };
 
             // Creates token using the above
             var tokenHandler = new JwtSecurityTokenHandler();
             var token = tokenHandler.CreateToken(tokenDescriptor);
+            IdentityModelEventSource.ShowPII = true;
 
             // returns the token if login successful
             return Ok(new {token = tokenHandler.WriteToken(token)});
