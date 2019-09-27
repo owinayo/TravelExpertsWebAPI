@@ -20,6 +20,7 @@ login(model: any){
       if (user){
         localStorage.setItem('token', user.token);
         this.decodedToken = this.jwtHelper.decodeToken(user.token);
+        console.log(this.decodedToken);
       }
     }));
 }
