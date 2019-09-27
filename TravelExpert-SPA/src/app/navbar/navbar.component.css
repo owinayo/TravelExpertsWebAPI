@@ -2,6 +2,8 @@
   margin-left: 10%;
 }
 
-#navLogo{
-  height: 250px !important;
+#navLogo {
+  max-height: 4.5rem;
 }
+
+

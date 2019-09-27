@@ -1,7 +1,7 @@
 <nav class="navbar is-fixed-top is-info" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a class="navbar-item" href="https://bulma.io">
-      <img id="navLogo" src="../../assets/images/logo.png" >
+      <img id="navLogo" src="../../assets/images/logo.png">
     </a>
 
     <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
@@ -24,14 +24,43 @@
 
     </div>
 
-    <div class="navbar-end">
+    <div class="navbar-end" *ngIf="true">
+      <div class="navbar-item">
+        <div class="dropdown">
+          <div class="dropdown-trigger">
+            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+              <span>Welcome User</span>
+              <span class="icon is-small">
+                <i class="fas fa-angle-down" aria-hidden="true"></i>
+              </span>
+            </button>
+          </div>
+          <div class="dropdown-menu" id="dropdown-menu3" role="menu">
+            <div class="dropdown-content">
+              <a href="#" class="dropdown-item">
+                <i class="fa fa-user"> </i> Edit Profile
+              </a>
+              <hr class="dropdown-divider">
+
+              <a href="#" class="dropdown-item">
+                <i class="fa fa-sign-out"> </i> Logout
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="navbar-end" *ngIf="true">
       <div class="navbar-item">
         <form #loginForm="ngForm" (ngSubmit)="login()">
           <div class="field is-horizontal">
             <div class="field-body">
               <div class="field">
                 <p class="control is-expanded has-icons-left">
-                  <input class="input is-primary" type="text" required placeholder="Username"  [(ngModel)]="model.Username" name="Username">
+                  <input class="input is-primary" type="text" required placeholder="Username"
+                    [(ngModel)]="model.Username" name="Username">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
@@ -39,7 +68,8 @@
               </div>
               <div class="field">
                 <p class="control is-expanded has-icons-left has-icons-right">
-                  <input class="input is-primary" type="password" required placeholder="Password" [(ngModel)]="model.Password" name="Password">
+                  <input class="input is-primary" type="password" required placeholder="Password"
+                    [(ngModel)]="model.Password" name="Password">
                   <span class="icon is-small is-left">
                     <i class="fas fa-key"></i>
                   </span>
