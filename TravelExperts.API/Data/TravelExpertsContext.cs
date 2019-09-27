@@ -35,7 +35,7 @@ namespace TravelExperts.API.Data
         public virtual DbSet<SupplierContacts> SupplierContacts { get; set; }
         public virtual DbSet<Suppliers> Suppliers { get; set; }
         public virtual DbSet<TripTypes> TripTypes { get; set; }
-        public virtual DbSet<Values> Values { get; set; }
+
 
         // Unable to generate entity type for table 'dbo.Employees'. Please see the warning messages.
 

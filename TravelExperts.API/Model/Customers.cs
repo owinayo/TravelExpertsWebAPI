@@ -25,6 +25,7 @@ namespace TravelExperts.API.Model
         public string CustEmail { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
+        public string Salt {get; set;}
         public int? AgentId { get; set; }
 
         public virtual Agents Agent { get; set; }
