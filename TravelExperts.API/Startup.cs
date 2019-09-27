@@ -28,6 +28,7 @@ namespace TravelExperts.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection")));
+            services.AddDbContext<TravelExpertsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             services.AddCors();
         }
