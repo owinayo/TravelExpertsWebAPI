@@ -1,5 +1,14 @@
-var dropdown = document.querySelector('.dropdown');
-dropdown.addEventListener('click', function(event) {
-  event.stopPropagation();
-  dropdown.classList.toggle('is-active');
-});
+
+document.addEventListener('click', function (e) {
+  if (hasClass(e.target, 'dropdownButton')) {
+    var dropdown = document.querySelector('#dropdownNav');
+    e.stopPropagation();
+    dropdown.classList.toggle('is-active');
+
+  }
+}, false);
+
+function hasClass(elem, className) {
+  return elem.className.split(' ').indexOf(className) > -1;
+}
+

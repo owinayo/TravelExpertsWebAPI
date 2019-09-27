@@ -24,11 +24,11 @@
 
     </div>
 
-    <div class="navbar-end" *ngIf="true">
+    <div class="navbar-end" *ngIf="loggedIn()">
       <div class="navbar-item">
-        <div class="dropdown">
+        <div class="dropdown" id="dropdownNav">
           <div class="dropdown-trigger">
-            <button class="button" aria-haspopup="true" aria-controls="dropdown-menu3">
+            <button class="button dropdownButton" aria-haspopup="true" aria-controls="dropdown-menu3">
               <span>Welcome User</span>
               <span class="icon is-small">
                 <i class="fas fa-angle-down" aria-hidden="true"></i>
@@ -42,7 +42,7 @@
               </a>
               <hr class="dropdown-divider">
 
-              <a href="#" class="dropdown-item">
+              <a href="#" class="dropdown-item" (click)="logout()">
                 <i class="fa fa-sign-out"> </i> Logout
               </a>
             </div>
@@ -52,7 +52,7 @@
 
     </div>
 
-    <div class="navbar-end" *ngIf="true">
+    <div class="navbar-end" *ngIf="!loggedIn()">
       <div class="navbar-item">
         <form #loginForm="ngForm" (ngSubmit)="login()">
           <div class="field is-horizontal">

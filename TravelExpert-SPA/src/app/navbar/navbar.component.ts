@@ -24,6 +24,16 @@ export class NavbarComponent implements OnInit {
 
   }
 
+  loggedIn(){
+    const token = localStorage.getItem('token');
+    return !!token;
+  }
+
+  logout(){
+    localStorage.removeItem('token');
+    console.log('Logged out.');
+  }
+
   public loadScript(url: string) {
     const body = <HTMLDivElement> document.body;
     const script = document.createElement('script');
