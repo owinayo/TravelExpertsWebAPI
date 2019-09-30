@@ -19,6 +19,7 @@ import { appRoutes } from './routes';
 import { TermsAndConditionsComponent } from './termsAndConditions/termsAndConditions.component';
 import { CustomerEditResolver } from './_resolvers/member-edit.resolver';
 import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export function tokenGetter(){
   return localStorage.getItem('token');
@@ -54,6 +55,7 @@ export function tokenGetter(){
       AuthService,
       ErrorInterceptorProvider,
       CustomerEditResolver,
+      PreventUnsavedChanges,
    ],
    bootstrap: [
       AppComponent

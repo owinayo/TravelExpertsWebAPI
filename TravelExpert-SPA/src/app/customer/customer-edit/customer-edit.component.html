@@ -1,11 +1,140 @@
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<br/>
-<p>
-  customer-edit works!
-  {{customer.custFirstName}}
-</p>
+<section class="section">
+  <div class="container">
+    <h2 class="is-size-2">Welcome {{customer.custFirstName}}!</h2>
+    <h3 class="is-size-4">Please edit your profile below:</h3>
+    <div *ngIf="editForm.dirty" class="notification is-info">
+      <strong>You have unsaved changes. Any unsaved changes will be lost.</strong>
+    </div>
+    <form #editForm="ngForm" id="editForm" (ngSubmit) = "updateCustomer()">
+
+      <div class="field">
+        <label class="label">First Name</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custFirstName" required class="input" type="text" [(ngModel)]="customer.custFirstName">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Last Name</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custLastName" required class="input" type="text" [(ngModel)]="customer.custLastName">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Address</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custAddress" required class="input" type="text" [(ngModel)]="customer.custAddress">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">City</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custCity" required class="input" type="text" [(ngModel)]="customer.custCity">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Province</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custProv" required class="input" type="text" [(ngModel)]="customer.custProv">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Country</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custCountry" required class="input" type="text" [(ngModel)]="customer.custCountry">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Postal Code</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custPostal" required class="input" type="text" [(ngModel)]="customer.custPostal">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Home Phone</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custHomePhone" required class="input" type="text" [(ngModel)]="customer.custHomePhone">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Business Phone</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custBusPhone" required class="input" type="text" [(ngModel)]="customer.custBusPhone">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="field">
+        <label class="label">Email</label>
+        <div class="control has-icons-left has-icons-right">
+          <input name="custEmail" required class="input" type="text" [(ngModel)]="customer.custEmail">
+          <span class="icon is-small is-left">
+            <i class="fas fa-user"></i>
+          </span>
+
+        </div>
+
+      </div>
+
+
+
+
+      <div class="field is-grouped">
+        <div class="control">
+          <button [disabled]="!editForm.dirty" form="editForm" class="button is-success" type="submit">Save Changes</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
