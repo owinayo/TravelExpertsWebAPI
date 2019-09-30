@@ -28,7 +28,7 @@ namespace TravelExperts.API.Controllers
 
         // GET api/customers/5
         [AllowAnonymous]
-        [HttpGet("{id}")]
+        [HttpGet("{id}", Name="GetCustomer")]
         public async Task<IActionResult> GetCustomer(int id)
         {
             var customer = await this.repo.GetCustomer(id);

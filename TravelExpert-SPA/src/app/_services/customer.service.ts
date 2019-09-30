@@ -23,4 +23,8 @@ export class CustomerService {
     return this.http.put(this.baseUrl + 'customers/' + id, customer);
   }
 
+  registerCustomer(customer: Customer){
+
+  }
+
 }

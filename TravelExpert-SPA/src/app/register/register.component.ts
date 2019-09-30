@@ -3,6 +3,8 @@ import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { Customer } from '../_models/Customer';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,6 @@ import { Customer } from '../_models/Customer';
 })
 export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
-  model: any = {};
   customer: Customer;
   registerForm: FormGroup;
 
@@ -237,7 +238,8 @@ export class RegisterComponent implements OnInit {
   "value": "WY"
 }];
 
-  constructor(private authService: AuthService, private alertify: AlertifyService, private fb: FormBuilder) { }
+  constructor(private authService: AuthService, private httpClient: HttpClient, private router: Router,
+     private alertify: AlertifyService, private fb: FormBuilder) { }
 
   ngOnInit() {
     this.customer = new Customer();
@@ -280,14 +282,18 @@ export class RegisterComponent implements OnInit {
 
 
   register(){
-    /*
-    this.authService.register(this.model).subscribe(()=>{
-      this.alertify.success('Registration successful');
-    }, error => {
-      this.alertify.error(error);
-    } );
-    */
-   console.log(this.registerForm);
+    if(this.registerForm.valid){
+      this.customer = Object.assign({}, this.registerForm.value);
+      this.authService.register(this.customer).subscribe(()=>{
+        this.alertify.success('Registration successful');
+      }, error => {
+        this.alertify.error(error);
+      }, () => {
+        this.authService.login(this.customer).subscribe(() =>{
+          this.router.navigate(['/bookedPackages']);
+        })
+      })
+    }
   }
 
   cancel(){

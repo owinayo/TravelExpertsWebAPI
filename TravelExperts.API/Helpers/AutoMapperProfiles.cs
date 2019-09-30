@@ -10,6 +10,7 @@ namespace TravelExperts.API.Helpers
         public AutoMapperProfiles(){
             CreateMap<Customers, CustomerForUpdateDto>();
             CreateMap<CustomerForUpdateDto, Customers>();
+            CreateMap<CustomerForRegisterDto,Customers>();
         }
     }
 }
