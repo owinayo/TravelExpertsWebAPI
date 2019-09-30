@@ -42,7 +42,7 @@
               </a>
               <hr class="dropdown-divider">
 
-              <a href="#" class="dropdown-item" (click)="logout()">
+              <a [routerLink]="['']" routerLinkActive="router-link-active"  class="dropdown-item" (click)="logout()">
                 <i class="fa fa-sign-out"> </i> Logout
               </a>
             </div>

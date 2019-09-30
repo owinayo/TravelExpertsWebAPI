@@ -1,11 +1,10 @@
 <section class="section">
   <div class="container">
-    <form #registerForm="ngForm" (ngSubmit)="register()">
+    <form [formGroup]="registerForm" (ngSubmit)="register()">
       <div class="field">
         <label class="label">Username</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="Username" required class="input" type="text" placeholder="" value=""
-            [(ngModel)]="model.Username">
+          <input formControlName="username"  class="input" type="text" placeholder="" value="">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -17,8 +16,7 @@
       <div class="field">
         <label class="label">Password</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="Password" required class="input" type="password" placeholder="" value=""
-            [(ngModel)]="model.Password">
+          <input formControlName="password"  class="input" type="password" placeholder="" value="">
           <span class="icon is-small is-left">
             <i class="fas fa-key"></i>
           </span>
@@ -27,11 +25,23 @@
 
       </div>
 
+      <div class="field">
+          <label class="label">Confirm Password</label>
+          <div class="control has-icons-left has-icons-right">
+            <input formControlName="confirmPassword"  class="input" type="password" placeholder="" value="">
+            <span class="icon is-small is-left">
+              <i class="fas fa-key"></i>
+            </span>
+
+          </div>
+
+        </div>
+
 
       <div class="field">
         <div class="control">
           <label class="checkbox">
-            <input required type="checkbox">
+            <input required formControlName="termsAndConditions" type="checkbox">
             I agree to the <a href="#">terms and conditions</a>
           </label>
         </div>
@@ -50,3 +60,6 @@
     </form>
   </div>
 </section>
+
+<p>Form value: {{registerForm.value | json}}:</p>
+<p>Form status: {{registerForm.status | json}}:</p>
