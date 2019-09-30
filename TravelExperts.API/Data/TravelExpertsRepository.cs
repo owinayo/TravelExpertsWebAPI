@@ -25,7 +25,10 @@ namespace TravelExperts.API.Data
 
         public async Task<Customers> EditCustomer(Customers oldCustomer, Customers newCustomer)
         {
-            throw new System.NotImplementedException();
+            var oldCustomerFromDB = await context.Customers.Where(c => c.CustomerId == oldCustomer.CustomerId).FirstOrDefaultAsync();
+            oldCustomerFromDB = newCustomer;
+            await context.SaveChangesAsync();
+            return oldCustomerFromDB;
         }
 
         public async Task<IEnumerable<Packages>> GetAllAvailablePackages()
