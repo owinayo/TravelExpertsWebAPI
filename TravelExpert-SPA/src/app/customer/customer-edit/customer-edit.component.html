@@ -5,12 +5,13 @@
     <div *ngIf="editForm.dirty" class="notification is-info">
       <strong>You have unsaved changes. Any unsaved changes will be lost.</strong>
     </div>
-    <form #editForm="ngForm" id="editForm" (ngSubmit)="updateCustomer()">
+    <form [formGroup]="editForm" id="editForm" (ngSubmit)="updateCustomer()">
 
-      <div class="field">
+        <div class="field">
         <label class="label">First Name</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custFirstName" required class="input" type="text" [(ngModel)]="customer.custFirstName">
+          <input formControlName="custFirstName" required class="input" type="text"
+            [(ngModel)]="customer.custFirstName">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -22,7 +23,7 @@
       <div class="field">
         <label class="label">Last Name</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custLastName" required class="input" type="text" [(ngModel)]="customer.custLastName">
+          <input formControlName="custLastName" required class="input" type="text" [(ngModel)]="customer.custLastName">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -34,7 +35,7 @@
       <div class="field">
         <label class="label">Address</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custAddress" required class="input" type="text" [(ngModel)]="customer.custAddress">
+          <input formControlName="custAddress" required class="input" type="text" [(ngModel)]="customer.custAddress">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -46,7 +47,7 @@
       <div class="field">
         <label class="label">City</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custCity" required class="input" type="text" [(ngModel)]="customer.custCity">
+          <input formControlName="custCity" required class="input" type="text" [(ngModel)]="customer.custCity">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -63,7 +64,7 @@
       <div class="control has-icons-left">
 
         <div class="select">
-          <select name="custCountry" [(ngModel)]="selectedCountry" (change)="chooseCountry()" > Country
+          <select formControlName="custCountry" [(ngModel)]="selectedCountry" (change)="chooseCountry()"> Country
             <option *ngFor="let c of countries" [value]="c">{{c}}</option>
           </select>
         </div>
@@ -77,7 +78,7 @@
       <div class="control has-icons-left">
 
         <div class="select">
-          <select name="custProv" [(ngModel)]="selectedProvince"> Country
+          <select formControlName="custProv" [(ngModel)]="selectedProvince"> Country
             <option value="" disabled="disabled">Choose Province/State</option>
             <option *ngFor="let p of filterProvinces()" [value]="p.value">{{p.value}}</option>
           </select>
@@ -90,7 +91,7 @@
       <div class="field">
         <label class="label">Postal Code</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custPostal" required class="input" type="text" [(ngModel)]="customer.custPostal">
+          <input formControlName="custPostal" required class="input" type="text" [(ngModel)]="customer.custPostal">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -102,7 +103,8 @@
       <div class="field">
         <label class="label">Home Phone</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custHomePhone" required class="input" type="text" [(ngModel)]="customer.custHomePhone">
+          <input formControlName="custHomePhone" required class="input" type="text"
+            [(ngModel)]="customer.custHomePhone">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -114,7 +116,7 @@
       <div class="field">
         <label class="label">Business Phone</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custBusPhone" required class="input" type="text" [(ngModel)]="customer.custBusPhone">
+          <input formControlName="custBusPhone" required class="input" type="text" [(ngModel)]="customer.custBusPhone">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -126,7 +128,7 @@
       <div class="field">
         <label class="label">Email</label>
         <div class="control has-icons-left has-icons-right">
-          <input name="custEmail" required class="input" type="text" [(ngModel)]="customer.custEmail">
+          <input formControlName="custEmail" required class="input" type="text" [(ngModel)]="customer.custEmail">
           <span class="icon is-small is-left">
             <i class="fas fa-user"></i>
           </span>
