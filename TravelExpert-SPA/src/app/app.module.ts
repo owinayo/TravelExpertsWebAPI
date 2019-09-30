@@ -15,6 +15,7 @@ import { ErrorInterceptorProvider } from './_services/error.intercepter';
 import { BookedPackagesComponent } from './bookedPackages/bookedPackages.component';
 import { VacationPackagesComponent } from './vacationPackages/vacationPackages.component';
 import { appRoutes } from './routes';
+import { TermsAndConditionsComponent } from './termsAndConditions/termsAndConditions.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { appRoutes } from './routes';
       HomeComponent,
       FooterComponent,
       BookedPackagesComponent,
-      VacationPackagesComponent
+      VacationPackagesComponent,
+      TermsAndConditionsComponent
    ],
    imports: [
       BrowserModule,
