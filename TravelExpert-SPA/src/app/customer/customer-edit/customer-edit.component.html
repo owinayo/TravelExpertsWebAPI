@@ -5,7 +5,7 @@
     <div *ngIf="editForm.dirty" class="notification is-info">
       <strong>You have unsaved changes. Any unsaved changes will be lost.</strong>
     </div>
-    <form #editForm="ngForm" id="editForm" (ngSubmit) = "updateCustomer()">
+    <form #editForm="ngForm" id="editForm" (ngSubmit)="updateCustomer()">
 
       <div class="field">
         <label class="label">First Name</label>
@@ -67,16 +67,17 @@
 
       </div>
 
-      <div class="field">
-        <label class="label">Country</label>
-        <div class="control has-icons-left has-icons-right">
-          <input name="custCountry" required class="input" type="text" [(ngModel)]="customer.custCountry">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
+      <label class="label">Country</label>
+      <div class="control has-icons-left">
 
+        <div class="select">
+          <select name="custCountry" [(ngModel)]="selectedCountry"> Country
+            <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+          </select>
         </div>
-
+        <span class="icon is-left">
+          <i class="fas fa-globe"></i>
+        </span>
       </div>
 
       <div class="field">
@@ -132,7 +133,8 @@
 
       <div class="field is-grouped">
         <div class="control">
-          <button [disabled]="!editForm.dirty" form="editForm" class="button is-success" type="submit">Save Changes</button>
+          <button [disabled]="!editForm.dirty" form="editForm" class="button is-success" type="submit">Save
+            Changes</button>
         </div>
       </div>
     </form>
