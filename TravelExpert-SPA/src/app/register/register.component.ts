@@ -15,6 +15,7 @@ export class RegisterComponent implements OnInit {
   @Output() cancelRegister = new EventEmitter();
   customer: Customer;
   registerForm: FormGroup;
+  termsButtonClicked: boolean;
 
   selectedCountry;
   selectedProvince;
@@ -239,21 +240,16 @@ export class RegisterComponent implements OnInit {
 }];
 
   constructor(private authService: AuthService, private httpClient: HttpClient, private router: Router,
-     private alertify: AlertifyService, private fb: FormBuilder) { }
+     private alertify: AlertifyService, private fb: FormBuilder) {
+
+      }
 
   ngOnInit() {
     this.customer = new Customer();
     this.createRegisterForm();
     this.selectedCountry = "Canada";
-    /*
-    this.registerForm = new FormGroup({
-      termsAndConditions: new FormControl('', Validators.requiredTrue),
-      username: new FormControl('', [Validators.required,Validators.minLength(4),Validators.maxLength(200)]),
-      password: new FormControl('', [Validators.required,Validators.minLength(4),Validators.maxLength(200)]),
-      confirmPassword: new FormControl('', Validators.required)
+    this.termsButtonClicked = false;
 
-    }, this.passwordMatchValidator);
-    */
   }
 
   createRegisterForm(){
@@ -280,6 +276,9 @@ export class RegisterComponent implements OnInit {
     return match.get('password').value == match.get('confirmPassword').value ? null: {'mismatch': true};
   }
 
+  showTerms(){
+    this.termsButtonClicked = !this.termsButtonClicked;
+  }
 
   register(){
     if(this.registerForm.valid){

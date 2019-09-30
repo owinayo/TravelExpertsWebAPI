@@ -174,11 +174,12 @@
         <div class="control">
           <label class="checkbox">
             <input required formControlName="termsAndConditions" type="checkbox">
-            I agree to the <a href="#">terms and conditions</a>
+            I agree to the <a (click)="showTerms()">terms and conditions</a>
           </label>
         </div>
       </div>
 
+      <app-termsAndConditions *ngIf="termsButtonClicked"></app-termsAndConditions>
 
 
       <div class="field is-grouped">

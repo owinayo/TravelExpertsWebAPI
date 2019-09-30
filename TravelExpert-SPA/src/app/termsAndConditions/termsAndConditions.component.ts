@@ -12,4 +12,8 @@ export class TermsAndConditionsComponent implements OnInit {
   ngOnInit() {
   }
 
+  hideModal(){
+    document.getElementById('termsModal').className="modal";
+  }
+
 }
