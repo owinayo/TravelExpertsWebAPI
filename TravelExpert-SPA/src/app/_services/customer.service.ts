@@ -19,4 +19,8 @@ export class CustomerService {
     return this.http.get<Customer>(this.baseUrl + 'customers/' + id);
   }
 
+  updateCustomer(id: number, customer: Customer) {
+    return this.http.put(this.baseUrl + 'customers/' + id, customer);
+  }
+
 }

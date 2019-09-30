@@ -1,8 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Customer } from 'src/app/_models/Customer';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
 import { NgForm } from '@angular/forms';
+import { CustomerService } from 'src/app/_services/customer.service';
+import { AuthService } from 'src/app/_services/auth.service';
 
 @Component({
   selector: 'app-customer-edit',
@@ -12,7 +14,15 @@ import { NgForm } from '@angular/forms';
 export class CustomerEditComponent implements OnInit {
   @ViewChild('editForm', {static:true}) editForm: NgForm;
   customer: Customer;
-  constructor(private route: ActivatedRoute, private alertify: AlertifyService) { }
+  @HostListener('window:beforeunload',['$event'])
+  unloadNotification($event: any){
+    if(this.editForm.dirty){
+      $event.returnValue = true;
+    }
+  }
+
+  constructor(private route: ActivatedRoute, private alertify: AlertifyService,
+    private authService: AuthService, private customerService: CustomerService) { }
 
   ngOnInit() {
     this.route.data.subscribe(data=>{
@@ -22,10 +32,13 @@ export class CustomerEditComponent implements OnInit {
   }
 
   updateCustomer(){
-    console.log(this.customer);
-    this.alertify.success("You have updated your information successfully!");
-    this.editForm.reset(this.customer);
-    
+    this.customerService.updateCustomer(this.authService.decodedToken.nameid, this.customer).subscribe(next =>{
+      this.alertify.success("You have updated your information successfully!");
+      this.editForm.reset(this.customer);
+    },
+    error =>{
+      this.alertify.error("Oh no! Aliens are preventing your user profile from being updated.");
+    });
 
   }
 

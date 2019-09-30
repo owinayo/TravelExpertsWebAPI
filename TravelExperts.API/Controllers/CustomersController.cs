@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -32,7 +33,7 @@ namespace TravelExperts.API.Controllers
         {
             var customer = await this.repo.GetCustomer(id);
 
-            var customerToReturn = mapper.Map<CustomerForDetailsDto>(customer);
+            var customerToReturn = mapper.Map<CustomerForUpdateDto>(customer);
 
             return Ok(customerToReturn);
         }
@@ -45,14 +46,22 @@ namespace TravelExperts.API.Controllers
 
         // PUT api/values/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> UpdateCustomer(int id, CustomerForUpdateDto customerForUpdateDto)
         {
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+                return Unauthorized();
+            }
+
+            var customerFromRepo = await repo.GetCustomer(id);
+
+            mapper.Map(customerForUpdateDto, customerFromRepo);
+            if (await repo.SaveAll()){
+                return NoContent();
+            }
+
+            throw new Exception($"Updating user {id} failed on save");
         }
 
-        // DELETE api/values/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }
+    
     }
 }

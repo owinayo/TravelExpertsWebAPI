@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace TravelExperts.API.Dtos
 {
-    public class CustomerForDetailsDto
+    public class CustomerForUpdateDto
     {
         [Required]
         [StringLength(200,MinimumLength=1,ErrorMessage="Specify a first name")]
@@ -42,9 +42,6 @@ namespace TravelExperts.API.Dtos
         [StringLength(200,MinimumLength=1,ErrorMessage="Specify an email")]
         public string CustEmail { get; set; }
 
-        [Required]
-        [StringLength(200,MinimumLength=4,ErrorMessage="Specify a username between 4 and 200 characters")]
-        public string Username { get; set; }
 
     }
 }

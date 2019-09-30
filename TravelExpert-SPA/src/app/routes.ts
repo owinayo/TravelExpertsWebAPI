@@ -4,6 +4,7 @@ import { BookedPackagesComponent } from './bookedPackages/bookedPackages.compone
 import { AuthGuard } from './_guards/auth.guard';
 import { CustomerEditResolver } from './_resolvers/member-edit.resolver';
 import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
+import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 
 export const appRoutes: Routes = [
   { path: 'home', component: HomeComponent},
@@ -12,7 +13,7 @@ export const appRoutes: Routes = [
     runGuardsAndResolvers: 'always',
     canActivate: [AuthGuard],
     children: [
-      {path: 'customer/edit', component: CustomerEditComponent, resolve: {Customer: CustomerEditResolver}},
+      {path: 'customer/edit', component: CustomerEditComponent, resolve: {Customer: CustomerEditResolver}, canDeactivate: [PreventUnsavedChanges]},
       { path: 'bookedPackages', component: BookedPackagesComponent},
     ]
   },

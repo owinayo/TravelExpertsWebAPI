@@ -8,7 +8,8 @@ namespace TravelExperts.API.Helpers
     public class AutoMapperProfiles : Profile
     {
         public AutoMapperProfiles(){
-            CreateMap<Customers, CustomerForDetailsDto>();
+            CreateMap<Customers, CustomerForUpdateDto>();
+            CreateMap<CustomerForUpdateDto, Customers>();
         }
     }
 }
