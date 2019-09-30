@@ -2,10 +2,12 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelExperts.API.Data;
+using TravelExperts.API.Dtos;
 
 namespace TravelExperts.API.Controllers
 {
@@ -14,29 +16,25 @@ namespace TravelExperts.API.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly TravelExpertsContext context;
-        public CustomersController(TravelExpertsContext context)
+        private readonly ITravelExpertsRepository repo;
+        private readonly IMapper mapper;
+        public CustomersController(ITravelExpertsRepository repo, IMapper mapper)
         {
-            this.context = context;
+            this.mapper = mapper;
+            this.repo = repo;
         }
-        // GET api/customers
-        [AllowAnonymous]
-        [HttpGet]
-        public async Task<IActionResult> GetCustomers()
-        {
-            var customers = await this.context.Customers.ToListAsync();
 
-            return Ok(customers);
-        }
 
         // GET api/customers/5
         [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await this.context.Customers.FirstOrDefaultAsync(x => x.CustomerId == id);
+            var customer = await this.repo.GetCustomer(id);
 
-            return Ok(customer);
+            var customerToReturn = mapper.Map<CustomerForDetailsDto>(customer);
+
+            return Ok(customerToReturn);
         }
 
         // POST api/values

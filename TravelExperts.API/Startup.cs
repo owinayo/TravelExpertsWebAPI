@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
@@ -35,9 +36,12 @@ namespace TravelExperts.API
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<TravelExpertsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+            .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
+            services.AddAutoMapper(typeof(TravelExpertsRepository).Assembly);
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<ITravelExpertsRepository, TravelExpertsRepository>();
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options => {
                     options.TokenValidationParameters = new TokenValidationParameters{
@@ -48,6 +52,7 @@ namespace TravelExperts.API
                     };
                 }
             );
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
