@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { CustomerComponent } from './customer/customer.component';
@@ -16,7 +17,12 @@ import { BookedPackagesComponent } from './bookedPackages/bookedPackages.compone
 import { VacationPackagesComponent } from './vacationPackages/vacationPackages.component';
 import { appRoutes } from './routes';
 import { TermsAndConditionsComponent } from './termsAndConditions/termsAndConditions.component';
+import { CustomerEditResolver } from './_resolvers/member-edit.resolver';
+import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
 
+export function tokenGetter(){
+  return localStorage.getItem('token');
+}
 
 @NgModule({
    declarations: [
@@ -28,17 +34,26 @@ import { TermsAndConditionsComponent } from './termsAndConditions/termsAndCondit
       FooterComponent,
       BookedPackagesComponent,
       VacationPackagesComponent,
-      TermsAndConditionsComponent
+      TermsAndConditionsComponent,
+      CustomerEditComponent,
    ],
    imports: [
       BrowserModule,
       HttpClientModule,
       FormsModule,
-      RouterModule.forRoot(appRoutes)
+      RouterModule.forRoot(appRoutes),
+      JwtModule.forRoot({
+        config: {
+          tokenGetter: tokenGetter,
+          whitelistedDomains: ['localhost:5000'],
+          blacklistedRoutes: ['localhost:5000/api/auth']
+        }
+      })
    ],
    providers: [
       AuthService,
-      ErrorInterceptorProvider
+      ErrorInterceptorProvider,
+      CustomerEditResolver,
    ],
    bootstrap: [
       AppComponent
