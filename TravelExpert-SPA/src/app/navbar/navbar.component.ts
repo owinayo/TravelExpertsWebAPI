@@ -38,6 +38,8 @@ export class NavbarComponent implements OnInit {
     localStorage.removeItem('token');
     this.alertify.message('Logged out.');
     this.router.navigate(['/home']);
+    this.model.Username="";
+    this.model.Password="";
   }
 
   public loadScript(url: string) {
