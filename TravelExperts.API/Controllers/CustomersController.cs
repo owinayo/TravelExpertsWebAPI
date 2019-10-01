@@ -79,7 +79,7 @@ namespace TravelExperts.API.Controllers
                 bookedPackagesToReturn.Add(new BookedPackageDetailsDto{
                     BookingDate = b.BookingDate,
                     PkgName = b.PkgName,
-                    Image = b.Image,
+                    Image = Convert.ToBase64String(b.Image),
                     Partner = b.Partner,
                     PkgStartDate = b.PkgStartDate,
                     PkgEndDate = b.PkgEndDate,

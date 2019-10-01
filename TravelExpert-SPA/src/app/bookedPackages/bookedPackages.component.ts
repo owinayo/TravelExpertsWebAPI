@@ -17,11 +17,18 @@ export class BookedPackagesComponent implements OnInit {
     this.getPackages();
   }
 
+  ngAfterViewInit(){
+    this.addColumnFormatting();
+  }
+
+
+
   getPackages() {
     this.route.data.subscribe(data=>{
-      console.log(data["BookedPackages"]);
       this.packages = data["BookedPackages"];
     });
+
+
     /*
     this.http.get('http://localhost:5000/api/customers/bookedPackages').subscribe(response => {
       this.packages = response;
@@ -29,4 +36,30 @@ export class BookedPackagesComponent implements OnInit {
       console.log(error);
     });*/
   }
+
+  addColumnFormatting(){
+    var cards = document.getElementsByClassName("column");
+    var parent = cards[0].parentElement;
+    var columnCounter = 3;
+    var columnsElement;
+
+    var i = 0;
+    var il = cards.length;
+
+    while(i<il){
+      if(columnCounter===3){
+        columnCounter = 0;
+        columnsElement = document.createElement("div");
+        columnsElement.className+="columns";
+        parent.appendChild(columnsElement);
+      }
+
+      columnsElement.appendChild(cards[0]);
+      i++;
+      columnCounter++;
+      console.log(cards.length);
+    }
+
+  }
+
 }

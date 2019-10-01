@@ -6,7 +6,7 @@ namespace TravelExperts.API.Dtos
     {
         public DateTime? BookingDate;
         public String PkgName;
-        public byte[] Image;
+        public String Image;
         public String Partner;
         public DateTime PkgStartDate;
         public DateTime PkgEndDate;

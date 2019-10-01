@@ -21,6 +21,7 @@ import { CustomerEditResolver } from './_resolvers/member-edit.resolver';
 import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { BookedPackagesResolver } from './_resolvers/booked-packages.resolver';
+import { SafeHtmlImagePipe } from './_pipes/SafeHtmlImage.pipe';
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -38,6 +39,7 @@ export function tokenGetter() {
       VacationPackagesComponent,
       TermsAndConditionsComponent,
       CustomerEditComponent,
+      SafeHtmlImagePipe
    ],
    imports: [
       BrowserModule,
