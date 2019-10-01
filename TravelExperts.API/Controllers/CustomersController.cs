@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using TravelExperts.API.Data;
 using TravelExperts.API.Dtos;
+using TravelExperts.API.Model;
 
 namespace TravelExperts.API.Controllers
 {
@@ -27,7 +28,7 @@ namespace TravelExperts.API.Controllers
 
 
         // GET api/customers/5
-        [AllowAnonymous]
+        
         [HttpGet("{id}", Name="GetCustomer")]
         public async Task<IActionResult> GetCustomer(int id)
         {
@@ -60,6 +61,36 @@ namespace TravelExperts.API.Controllers
             }
 
             throw new Exception($"Updating user {id} failed on save");
+        }
+
+        [HttpGet("bookingDetails/{id}")]
+        public async Task<IActionResult> GetBookedPackagesByCustomerId(int id){
+
+            Console.WriteLine(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
+
+            if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
+                return Unauthorized();
+            } 
+
+            List<BookedPackages> bookingsForCustomer = repo.GetBookedPackagesByCustomer(id);
+
+            List<BookedPackageDetailsDto> bookedPackagesToReturn = new List<BookedPackageDetailsDto>(); 
+            foreach (BookedPackages b in bookingsForCustomer){
+                bookedPackagesToReturn.Add(new BookedPackageDetailsDto{
+                    BookingDate = b.BookingDate,
+                    PkgName = b.PkgName,
+                    Image = b.Image,
+                    Partner = b.Partner,
+                    PkgStartDate = b.PkgStartDate,
+                    PkgEndDate = b.PkgEndDate,
+                    PkgDesc = b.PkgDesc,
+                    PkgBasePrice = b.PkgBasePrice
+                });
+            }
+
+
+            return Ok(bookedPackagesToReturn);
+
         }
 
     

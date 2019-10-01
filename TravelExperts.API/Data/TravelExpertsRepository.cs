@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -37,17 +38,58 @@ namespace TravelExperts.API.Data
             return packages;
         }
 
-        public async Task<IEnumerable<Packages>> GetBookedPackagesByCustomer(int customerId)
+        public List<BookedPackages> GetBookedPackagesByCustomer(int customerId)
         {
             var packages = 
             (from c in context.Customers
             join b in context.Bookings on c.CustomerId equals b.CustomerId
             join p in context.Packages on b.PackageId equals p.PackageId
             where c.CustomerId == customerId
-            select new {p.PackageId, p.PkgName, p.Image, p.Partner, p.AirfairInclusion,
+            select new {b.BookingDate, p.PackageId, p.PkgName, p.Image, p.Partner, p.AirfairInclusion,
             p.PkgStartDate, p.PkgEndDate, p.PkgDesc, p.PkgBasePrice, p.PkgAgencyCommission});
+            Console.WriteLine("here"); 
 
-            return await packages.Cast<Packages>().ToListAsync();
+            List<BookedPackages> bookedPackagesList = new List<BookedPackages>();
+            foreach(var package in packages){
+                bookedPackagesList.Add(new BookedPackages{
+                    BookingDate = package.BookingDate,
+                    PackageId = package.PackageId,
+                    PkgName = package.PkgName,
+                    Image = package.Image,
+                    AirfairInclusion = package.AirfairInclusion,
+                    PkgStartDate = package.PkgStartDate,
+                    PkgEndDate = package.PkgEndDate,
+                    PkgDesc = package.PkgDesc,
+                    PkgBasePrice = package.PkgBasePrice,
+                    PkgAgencyCommission = package.PkgAgencyCommission
+                });
+                Console.WriteLine("here2");                
+            }
+                
+            return bookedPackagesList;
+            
+            /*
+            Task<List<BookedPackages>> task = new Task<List<BookedPackages>>(()=>{
+                List<BookedPackages> bookedPackagesList = new List<BookedPackages>();
+                foreach(var package in packages){
+                    bookedPackagesList.Add(new BookedPackages{
+                        BookingDate = package.BookingDate,
+                        PackageId = package.PackageId,
+                        PkgName = package.PkgName,
+                        Image = package.Image,
+                        AirfairInclusion = package.AirfairInclusion,
+                        PkgStartDate = package.PkgStartDate,
+                        PkgEndDate = package.PkgEndDate,
+                        PkgDesc = package.PkgDesc,
+                        PkgBasePrice = package.PkgBasePrice,
+                        PkgAgencyCommission = package.PkgAgencyCommission
+                    });
+                    Console.WriteLine("here2");                
+                }
+                return bookedPackagesList;
+            });
+            */
+            
         }
 
         public async Task<Customers> GetCustomer(int id)

@@ -11,6 +11,7 @@ namespace TravelExperts.API.Helpers
             CreateMap<Customers, CustomerForUpdateDto>();
             CreateMap<CustomerForUpdateDto, Customers>();
             CreateMap<CustomerForRegisterDto,Customers>();
+            CreateMap<BookedPackages,BookedPackageDetailsDto>();
         }
     }
 }

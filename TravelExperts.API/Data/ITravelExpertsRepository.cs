@@ -19,7 +19,7 @@ namespace TravelExperts.API.Data
 
         Task<IEnumerable<Packages>> GetAllAvailablePackages();
 
-        Task<IEnumerable<Packages>> GetBookedPackagesByCustomer(int customerId);
+        List<BookedPackages> GetBookedPackagesByCustomer(int customerId);
 
         
     }
