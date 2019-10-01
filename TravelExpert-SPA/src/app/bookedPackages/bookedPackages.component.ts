@@ -11,10 +11,12 @@ import { ActivatedRoute } from '@angular/router';
 export class BookedPackagesComponent implements OnInit {
 
   packages: any;
+  totalCost: number;
   constructor(private http: HttpClient, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getPackages();
+    this.calculateTotal();
   }
 
   ngAfterViewInit(){
@@ -37,6 +39,13 @@ export class BookedPackagesComponent implements OnInit {
     });*/
   }
 
+  calculateTotal(){
+    this.totalCost = 0;
+    this.packages.forEach(pkg => {
+      this.totalCost+=pkg.pkgBasePrice;
+    });
+  }
+
   addColumnFormatting(){
     var cards = document.getElementsByClassName("column");
     var parent = cards[0].parentElement;
@@ -57,7 +66,13 @@ export class BookedPackagesComponent implements OnInit {
       columnsElement.appendChild(cards[0]);
       i++;
       columnCounter++;
-      console.log(cards.length);
+    }
+
+    while(columnCounter!=3){
+      let emptyColumn = document.createElement("div");
+      emptyColumn.className+="column";
+      columnsElement.appendChild(emptyColumn);
+      columnCounter++;
     }
 
   }

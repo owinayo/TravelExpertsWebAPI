@@ -1,33 +1,38 @@
 <div class="">
-  <section class="hero is-large is-primary has-background">
-<div class = "hero-body">
-<div *ngFor="let package of packages" class="column">
-<div class="card">
-  <div class="card-image">
-    <figure class="image is-4by3">
-      <img [src]="'data:image/jpg;base64,'+package.image | SafeHtmlImage" alt="Placeholder image">
-    </figure>
-  </div>
-  <div class="card-content">
-    <div class="media">
 
-      <div class="media-content">
-        <p class="title is-4 has-text-primary">{{package.pkgName}}</p>
-        <p class="subtitle is-6 has-text-black"><strong class="has-text-black">{{package.pkgStartDate.toString().substring(0,10)}} - {{package.pkgEndDate.toString().substring(0,10)}}</strong></p>
+  <section class="hero is-large is-primary has-background">
+    <div id="packageBody" class="hero-body">
+      <strong><p class="is-size-2 has-text-link">Total Cost Owing: ${{totalCost.toLocaleString('en-US')}}</p></strong>
+      <div *ngFor="let package of packages" class="column">
+        <div class="card">
+          <div class="card-image">
+            <figure class="image is-4by3">
+              <img [src]="'data:image/jpg;base64,'+package.image | SafeHtmlImage" alt="Placeholder image">
+            </figure>
+          </div>
+          <div class="card-content">
+            <div class="media">
+
+              <div class="media-content">
+                <p class="title is-4 has-text-primary">{{package.pkgName}}</p>
+                <p class="subtitle is-6 has-text-black"><strong
+                    class="has-text-black">{{package.pkgStartDate.toString().substring(0,10)}} -
+                    {{package.pkgEndDate.toString().substring(0,10)}}</strong></p>
+              </div>
+            </div>
+
+            <div class="content is-size-5">
+              {{package.pkgDesc}}
+              <br />
+
+            </div>
+            <p class="is-size-6">Booked on {{package.bookingDate.toString().substring(0,10)}} for
+              ${{package.pkgBasePrice.toLocaleString('en-US')}}</p>
+          </div>
+        </div>
       </div>
     </div>
-
-    <div class="content is-size-5">
-      {{package.pkgDesc}}
-      <br/>
-
-    </div>
-    <p class = "is-size-6">Booked on {{package.bookingDate.toString().substring(0,10)}} for ${{package.pkgBasePrice.toLocaleString('en-US')}}</p>
-  </div>
-</div>
-</div>
-</div>
-</section>
+  </section>
 </div>
 
 <p class="footerFit">
