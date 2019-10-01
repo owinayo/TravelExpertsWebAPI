@@ -63,7 +63,7 @@ namespace TravelExperts.API.Controllers
             throw new Exception($"Updating user {id} failed on save");
         }
 
-        [HttpGet("bookingDetails/{id}")]
+        [HttpGet("bookedPackages/{id}")]
         public async Task<IActionResult> GetBookedPackagesByCustomerId(int id){
 
             Console.WriteLine(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));

@@ -3,6 +3,7 @@ import { environment } from 'src/environments/environment';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Customer } from '../_models/Customer';
+import { BookedPackage } from '../_models/BookedPackage';
 
 
 @Injectable({
@@ -23,8 +24,8 @@ export class CustomerService {
     return this.http.put(this.baseUrl + 'customers/' + id, customer);
   }
 
-  registerCustomer(customer: Customer){
-
+  getBookedPackages(id): Observable<BookedPackage>{
+    return this.http.get<BookedPackage>(this.baseUrl+'customers/bookedPackages/' + id);
   }
 
 }

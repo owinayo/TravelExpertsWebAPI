@@ -20,8 +20,9 @@ import { TermsAndConditionsComponent } from './termsAndConditions/termsAndCondit
 import { CustomerEditResolver } from './_resolvers/member-edit.resolver';
 import { CustomerEditComponent } from './customer/customer-edit/customer-edit.component';
 import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
+import { BookedPackagesResolver } from './_resolvers/booked-packages.resolver';
 
-export function tokenGetter(){
+export function tokenGetter() {
   return localStorage.getItem('token');
 }
 
@@ -46,7 +47,7 @@ export function tokenGetter(){
       RouterModule.forRoot(appRoutes),
       JwtModule.forRoot({
         config: {
-          tokenGetter: tokenGetter,
+          tokenGetter,
           whitelistedDomains: ['localhost:5000'],
           blacklistedRoutes: ['localhost:5000/api/auth']
         }
@@ -56,6 +57,7 @@ export function tokenGetter(){
       AuthService,
       ErrorInterceptorProvider,
       CustomerEditResolver,
+      BookedPackagesResolver,
       PreventUnsavedChanges,
    ],
    bootstrap: [
