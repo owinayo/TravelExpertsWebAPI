@@ -265,8 +265,8 @@ export class RegisterComponent implements OnInit {
       custPostal:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       custCountry:['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
       custHomePhone:['', [Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
-      custBusPhone:[null, null],
-      custEmail:[null, null],
+      custBusPhone:['', null],
+      custEmail:['', null],
       termsAndConditions: ['', Validators.requiredTrue],
       username:['', [Validators.required,Validators.minLength(4),Validators.maxLength(200)]],
       password: ['', [Validators.required,Validators.minLength(4),Validators.maxLength(200)]],
@@ -314,9 +314,9 @@ export class RegisterComponent implements OnInit {
     var countryValid = this.registerForm.get('custCountry').valid;
     var provinceValid = this.registerForm.get('custProv').valid;
     var postalValid = this.registerForm.get('custPostal').valid;
-    var emailValid = this.registerForm.get('custEmail').valid || this.registerForm.get('custEmail').value == '' ||  this.registerForm.get('custEmail').value == null;
+    var emailValid = this.registerForm.get('custEmail').valid || this.registerForm.get('custEmail').value == '';
     var homePhoneValid = this.registerForm.get('custHomePhone').valid;
-    var busPhoneValid = this.registerForm.get('custBusPhone').valid || this.registerForm.get('custBusPhone').value == '' || this.registerForm.get('custBusPhone').value == null;
+    var busPhoneValid = this.registerForm.get('custBusPhone').valid || this.registerForm.get('custBusPhone').value == '';
     var usernameValid = this.registerForm.get('username').valid;
     var passwordValid = this.registerForm.get('password').valid;
     var passwordMatch = !this.registerForm.hasError('mismatch');
@@ -394,6 +394,7 @@ export class RegisterComponent implements OnInit {
             emailControl.setValidators([Validators.minLength(5),Validators.maxLength(200),Validators.email]);
           }
           else{
+            console.log('email clear');
             emailControl.clearValidators();
             emailControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
           }
@@ -408,11 +409,17 @@ export class RegisterComponent implements OnInit {
           busPhoneControl.setValidators([Validators.minLength(10),Validators.maxLength(15)]);
         }
         else{
+          console.log('phone clear');
           busPhoneControl.clearValidators();
           busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
         }
     }
     });
+
+    emailControl.clearValidators();
+    emailControl.updateValueAndValidity();
+    busPhoneControl.clearValidators();
+    busPhoneControl.updateValueAndValidity();
   }
 
 
