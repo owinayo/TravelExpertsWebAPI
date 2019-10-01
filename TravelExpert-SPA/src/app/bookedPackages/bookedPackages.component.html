@@ -1,8 +1,8 @@
 <div class="">
-
   <section class="hero is-large is-primary has-background">
     <div id="packageBody" class="hero-body">
-      <strong><p class="is-size-2 has-text-link">Total Cost Owing: ${{totalCost.toLocaleString('en-US')}}</p></strong>
+      <strong ><p id = "totalCost" class="is-size-1 has-text-centered has-text-link">Booked Packages</p></strong>
+      <strong><p id = "totalCost" class="is-size-3 has-text-white">Total Cost Owing: ${{totalCost.toLocaleString('en-US')}}</p></strong>
       <div *ngFor="let package of packages" class="column">
         <div class="card">
           <div class="card-image">

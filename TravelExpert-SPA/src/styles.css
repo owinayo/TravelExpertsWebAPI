@@ -17,3 +17,20 @@ html,.footerFit {
   padding-top: 0px;
   padding-bottom: 0px;
 }
+
+
+.hero.has-background {
+  position: relative;
+  overflow: hidden;
+
+}
+.hero-background {
+  position: absolute;
+  object-fit: cover;
+  object-position: center center;
+  width: 100%;
+  height: 100%;
+}
+.hero-background.is-transparent {
+  opacity: 0.3;
+}

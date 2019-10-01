@@ -1,0 +1,8 @@
+#editFormBody{
+  padding-top: 5%;
+  width: 75%;
+}
+
+div.select, select{
+  width: -webkit-fill-available;
+}

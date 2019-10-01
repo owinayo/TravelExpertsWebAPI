@@ -1,151 +1,164 @@
-<section class="section">
-  <div class="container">
-    <h2 class="is-size-2">Welcome {{customer.custFirstName}}!</h2>
-    <h3 class="is-size-4">Please edit your profile below:</h3>
-    <div *ngIf="editForm.dirty" class="notification is-info">
-      <strong>You have unsaved changes. Any unsaved changes will be lost.</strong>
+<div class="">
+  <section class="hero is-large is-primary has-background">
+    <img class="hero-background is-transparent" src="../../assets/images/mountains.jpg" />
+    <div id="editFormBody" class="container hero-body">
+      <h2 class="is-size-2 has-text-centered">Welcome {{customer.custFirstName}}!</h2> <br />
+      <h3 class="is-size-4">Please edit your profile below:</h3>
+      <div *ngIf="editForm.dirty" class="notification is-info">
+        <strong>You have unsaved changes. Any unsaved changes will be lost.</strong>
+      </div>
+      <form [formGroup]="editForm" id="editForm" (ngSubmit)="updateCustomer()">
+        <div class="columns">
+          <div class="field column">
+            <label class="label">First Name</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custFirstName" required class="input" type="text"
+                [(ngModel)]="customer.custFirstName">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="field column">
+            <label class="label">Last Name</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custLastName" required class="input" type="text"
+                [(ngModel)]="customer.custLastName">
+              <span class="icon is-small is-left">
+                <i class="fas fa-user"></i>
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="columns">
+          <div class="field column is-two-thirds">
+            <label class="label">Address</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custAddress" required class="input" type="text"
+                [(ngModel)]="customer.custAddress">
+              <span class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="field column">
+            <label class="label">City</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custCity" required class="input" type="text" [(ngModel)]="customer.custCity">
+              <span class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+        <div class="columns">
+          <div class="field column">
+            <label class="label">Country</label>
+            <div class="control has-icons-left">
+
+              <div class="select">
+                <select formControlName="custCountry" [(ngModel)]="selectedCountry" (change)="chooseCountry()"> Country
+                  <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+                </select>
+              </div>
+              <span class="icon is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field column">
+            <label *ngIf="selectedCountry=='Canada'" class="label">Province</label>
+            <label *ngIf="selectedCountry=='USA'" class="label">State</label>
+            <div class="control has-icons-left">
+
+              <div class="select">
+                <select formControlName="custProv" [(ngModel)]="selectedProvince"> Country
+                  <option value="" disabled="disabled">Choose Province/State</option>
+                  <option *ngFor="let p of filterProvinces()" [value]="p.value">{{p.value}}</option>
+                </select>
+              </div>
+              <span class="icon is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+            </div>
+          </div>
+
+          <div class="field column">
+            <label class="label">Postal Code</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custPostal" required class="input" type="text" [(ngModel)]="customer.custPostal">
+              <span class="icon is-small is-left">
+                <i class="fas fa-globe"></i>
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+        <div class="columns">
+          <div class="field column">
+            <label class="label">Home Phone</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custHomePhone" required class="input" type="text"
+                [(ngModel)]="customer.custHomePhone">
+              <span class="icon is-small is-left">
+                <i class="fas fa-phone-alt"></i>
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="field column">
+            <label class="label">Business Phone</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custBusPhone" required class="input" type="text"
+                [(ngModel)]="customer.custBusPhone">
+              <span class="icon is-small is-left">
+                <i class="fas fa-phone-alt"></i>
+              </span>
+
+            </div>
+
+          </div>
+
+          <div class="field column">
+            <label class="label">Email</label>
+            <div class="control has-icons-left has-icons-right">
+              <input formControlName="custEmail" required class="input" type="text" [(ngModel)]="customer.custEmail">
+              <span class="icon is-small is-left">
+                <i class="fas fa-envelope"></i>
+              </span>
+
+            </div>
+
+          </div>
+        </div>
+
+
+
+
+        <div class="field is-grouped">
+          <div class="control">
+            <button [disabled]="!editForm.dirty" form="editForm" class="button is-success" type="submit">Save
+              Changes</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <form [formGroup]="editForm" id="editForm" (ngSubmit)="updateCustomer()">
-
-        <div class="field">
-        <label class="label">First Name</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custFirstName" required class="input" type="text"
-            [(ngModel)]="customer.custFirstName">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="field">
-        <label class="label">Last Name</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custLastName" required class="input" type="text" [(ngModel)]="customer.custLastName">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="field">
-        <label class="label">Address</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custAddress" required class="input" type="text" [(ngModel)]="customer.custAddress">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="field">
-        <label class="label">City</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custCity" required class="input" type="text" [(ngModel)]="customer.custCity">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-
-
-
-
-      <label class="label">Country</label>
-      <div class="control has-icons-left">
-
-        <div class="select">
-          <select formControlName="custCountry" [(ngModel)]="selectedCountry" (change)="chooseCountry()"> Country
-            <option *ngFor="let c of countries" [value]="c">{{c}}</option>
-          </select>
-        </div>
-        <span class="icon is-left">
-          <i class="fas fa-globe"></i>
-        </span>
-      </div>
-
-      <label *ngIf="selectedCountry=='Canada'" class="label">Province</label>
-      <label *ngIf="selectedCountry=='USA'" class="label">State</label>
-      <div class="control has-icons-left">
-
-        <div class="select">
-          <select formControlName="custProv" [(ngModel)]="selectedProvince"> Country
-            <option value="" disabled="disabled">Choose Province/State</option>
-            <option *ngFor="let p of filterProvinces()" [value]="p.value">{{p.value}}</option>
-          </select>
-        </div>
-        <span class="icon is-left">
-          <i class="fas fa-globe"></i>
-        </span>
-      </div>
-
-      <div class="field">
-        <label class="label">Postal Code</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custPostal" required class="input" type="text" [(ngModel)]="customer.custPostal">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="field">
-        <label class="label">Home Phone</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custHomePhone" required class="input" type="text"
-            [(ngModel)]="customer.custHomePhone">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="field">
-        <label class="label">Business Phone</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custBusPhone" required class="input" type="text" [(ngModel)]="customer.custBusPhone">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-      <div class="field">
-        <label class="label">Email</label>
-        <div class="control has-icons-left has-icons-right">
-          <input formControlName="custEmail" required class="input" type="text" [(ngModel)]="customer.custEmail">
-          <span class="icon is-small is-left">
-            <i class="fas fa-user"></i>
-          </span>
-
-        </div>
-
-      </div>
-
-
-
-
-      <div class="field is-grouped">
-        <div class="control">
-          <button [disabled]="!editForm.dirty" form="editForm" class="button is-success" type="submit">Save
-            Changes</button>
-        </div>
-      </div>
-    </form>
-  </div>
-</section>
+  </section>
+</div>

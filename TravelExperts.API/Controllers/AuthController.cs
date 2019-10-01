@@ -72,7 +72,7 @@ namespace TravelExperts.API.Controllers
             var claims = new[]
             {
                 new Claim(ClaimTypes.NameIdentifier,loggedInCustomer.CustomerId.ToString()),
-                new Claim(ClaimTypes.Name, loggedInCustomer.Username),
+                new Claim(ClaimTypes.Name, loggedInCustomer.CustFirstName),
             };
 
             // Creates a key from token signature defined in app settings
