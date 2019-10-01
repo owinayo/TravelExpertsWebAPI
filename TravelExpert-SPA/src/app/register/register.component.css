@@ -1,0 +1,15 @@
+#registerForm{
+  width: 75%;
+  margin: auto;
+}
+
+div.select, select{
+  width: -webkit-fill-available;
+}
+
+section.section{
+  padding-top: 2%;
+}
+
+
+

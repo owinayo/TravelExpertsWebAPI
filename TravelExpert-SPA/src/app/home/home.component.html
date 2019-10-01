@@ -1,7 +1,8 @@
 <div class="">
   <section class="hero is-large is-primary has-background">
     <img class="hero-background is-transparent" src="../../assets/images/drink-on-beach.jpg" />
-    <div class="hero-body">
+    <div id="homeBody" class="hero-body">
+      <div *ngIf="!registerMode" id="addPaddingDiv"></div>
       <div class="container">
         <h1 class="title has-text-centered">
           Welcome to Travel Experts
