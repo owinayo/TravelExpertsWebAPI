@@ -1,4 +1,5 @@
 
+
 document.addEventListener('click', function (e) {
   var target =e.target;
   var parent = target.parentElement;
@@ -15,4 +16,3 @@ document.addEventListener('click', function (e) {
 function hasClass(elem, className) {
   return elem.className.split(' ').indexOf(className) > -1;
 }
-

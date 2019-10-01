@@ -15,7 +15,15 @@ export class NavbarComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit() {
-    this.loadScript('../assets/scripts/navbar.component.js');
+
+  }
+
+  ngAfterViewInit(){
+    this.addDropDownBehaviour();
+  }
+
+  ngOnChanges(){
+    this.addDropDownBehaviour();
   }
 
 
@@ -42,7 +50,29 @@ export class NavbarComponent implements OnInit {
     this.model.Password="";
   }
 
-  public loadScript(url: string) {
+  addDropDownBehaviour(){
+
+    this.loadScript('../assets/scripts/navbar.component.js');
+    /*
+    document.addEventListener('click', (e) => {
+      var dropdown = document.getElementsByClassName("dropdown-item");
+      for (let i = 0; i < dropdown.length; i++){
+      dropdown[i].addEventListener('click', ()=>{
+        var dropdown = document.querySelector('#dropdownNav');
+        dropdown.classList.toggle('is-active');
+      })
+    }
+    });
+    */
+
+  }
+
+  closeDropdown(){
+    var dropdown = document.querySelector('#dropdownNav');
+    dropdown.classList.toggle('is-active');
+  }
+
+  loadScript(url: string) {
     const body = <HTMLDivElement> document.body;
     const script = document.createElement('script');
     script.innerHTML = '';
@@ -51,7 +81,6 @@ export class NavbarComponent implements OnInit {
     script.defer = true;
     body.appendChild(script);
   }
-
 
 
 }

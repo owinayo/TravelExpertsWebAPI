@@ -37,7 +37,7 @@
           </div>
           <div class="dropdown-menu" id="dropdown-menu3" role="menu">
             <div class="dropdown-content">
-              <a [routerLink]="['/customer/edit']"  class="dropdown-item">
+              <a [routerLink]="['/customer/edit']"  class="dropdown-item" (click)="closeDropdown()">
                 <i class="fas fa-user-edit"> </i> Edit Profile
               </a>
               <hr class="dropdown-divider">
