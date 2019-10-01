@@ -4,6 +4,7 @@
 
 #navLogo {
   max-height: 4.5rem;
+  filter:hue-rotate(20deg);
 }
 
 

@@ -78,7 +78,7 @@ namespace TravelExperts.API.Data {
             passwordHash = new byte[36]; // Initialize hash
             new RNGCryptoServiceProvider().GetBytes(passwordSalt = new byte[16]); //Create new salt
             // Generate hash from password and salt
-            var pbkdf2 = new Rfc2898DeriveBytes("password", passwordSalt, 10000);
+            var pbkdf2 = new Rfc2898DeriveBytes(password, passwordSalt, 10000);
             byte[] hash = pbkdf2.GetBytes(20);
             // Copies salt into first 16 slots in combined password hash
             Array.Copy(passwordSalt, 0, passwordHash, 0, 16);
