@@ -7,7 +7,7 @@
           Welcome to Travel Experts
         </h1>
         <h2 class="subtitle has-text-centered">
-          Primary subtitle
+          Your adventure awaits!
         </h2>
       </div>
 
@@ -15,8 +15,7 @@
         <div class="container">
           <div></div>
           <div class="buttons is-centered">
-            <span class="button is-info" (click)="toggleRegisterMode()">Register</span>
-            <span class="button is-info">View Packages</span>
+            <span *ngIf="!loggedIn()" class="button is-info" (click)="toggleRegisterMode()">Register</span>
           </div>
         </div>
       </section>

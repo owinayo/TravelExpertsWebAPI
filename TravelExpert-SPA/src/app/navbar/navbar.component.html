@@ -18,7 +18,7 @@
         Home
       </a>
 
-      <a class="navbar-item" [routerLink]="['/bookedPackages']" routerLinkActive="active">
+      <a *ngIf="loggedIn()" class="navbar-item" [routerLink]="['/bookedPackages']" routerLinkActive="active">
         Booked Packages
       </a>
 

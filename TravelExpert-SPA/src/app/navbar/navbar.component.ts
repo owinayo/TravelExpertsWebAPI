@@ -18,6 +18,7 @@ export class NavbarComponent implements OnInit {
     this.loadScript('../assets/scripts/navbar.component.js');
   }
 
+
   login(){
     this.authService.login(this.model).subscribe(next =>{
 
