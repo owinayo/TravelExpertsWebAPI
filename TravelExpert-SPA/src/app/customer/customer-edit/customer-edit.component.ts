@@ -17,6 +17,9 @@ export class CustomerEditComponent implements OnInit {
   customer: Customer;
   selectedCountry;
   selectedProvince;
+  canadianRegex = new RegExp(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/);
+  usaRegex = new RegExp(/^\d{5}$/);
+
   countries = ["Canada", "USA"];
   provinces = [
     {'country': 'Canada', 'value': "AB"},
@@ -287,7 +290,7 @@ export class CustomerEditComponent implements OnInit {
       custAddress:['', [Validators.required,Validators.minLength(1),Validators.maxLength(200)]],
       custCity:['', [Validators.required,Validators.minLength(1),Validators.maxLength(200)]],
       custProv:['', [Validators.required,Validators.minLength(2),Validators.maxLength(2)]],
-      custPostal:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
+      custPostal:['', [Validators.required,Validators.pattern(this.canadianRegex)]],
       custCountry:['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
       custHomePhone:['', [Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
       custBusPhone:[null,null],
@@ -299,6 +302,7 @@ export class CustomerEditComponent implements OnInit {
   setConditionalValidators() {
     const emailControl = this.editForm.get('custEmail');
     const busPhoneControl = this.editForm.get('custBusPhone');
+    const postalControl = this.editForm.get('custPostal');
 
 
 
@@ -330,11 +334,25 @@ export class CustomerEditComponent implements OnInit {
     }
     });
 
+    this.editForm.get('custCountry').valueChanges
+    .subscribe((value) => {
+      if(this.editForm.get('custCountry').value=='Canada'){
+        postalControl.clearValidators();
+        postalControl.setValidators([Validators.required,Validators.pattern(this.canadianRegex)]);
+        postalControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+      }
+      else if(this.editForm.get('custCountry').value=="USA"){
+        postalControl.clearValidators();
+        postalControl.setValidators([Validators.required,Validators.pattern(this.usaRegex)]);
+        postalControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+      }
+
+    });
+
 
   }
 
   updateCustomer(){
-    console.log(this.showValidation());
     if(this.showValidation()){
       this.customer.custCountry = this.selectedCountry;
       this.customer.custProv = this.selectedProvince;

@@ -17,6 +17,8 @@ export class RegisterComponent implements OnInit {
   customer: Customer;
   registerForm: FormGroup;
   termsButtonClicked: boolean;
+  canadianRegex = new RegExp(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/);
+  usaRegex = new RegExp(/^\d{5}$/);
 
   selectedCountry;
   selectedProvince;
@@ -262,7 +264,7 @@ export class RegisterComponent implements OnInit {
       custAddress:['', [Validators.required,Validators.minLength(1),Validators.maxLength(200)]],
       custCity:['', [Validators.required,Validators.minLength(1),Validators.maxLength(200)]],
       custProv:['', [Validators.required,Validators.minLength(2),Validators.maxLength(2)]],
-      custPostal:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
+      custPostal:['', [Validators.required,Validators.pattern(this.canadianRegex)]],
       custCountry:['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
       custHomePhone:['', [Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
       custBusPhone:['', null],
@@ -385,6 +387,7 @@ export class RegisterComponent implements OnInit {
   setConditionalValidators() {
     const emailControl = this.registerForm.get('custEmail');
     const busPhoneControl = this.registerForm.get('custBusPhone');
+    const postalControl = this.registerForm.get('custPostal');
 
     this.registerForm.get('custEmail').valueChanges
     .pipe(pairwise())
@@ -414,6 +417,21 @@ export class RegisterComponent implements OnInit {
           busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
         }
     }
+    });
+
+    this.registerForm.get('custCountry').valueChanges
+    .subscribe((value) => {
+      if(this.registerForm.get('custCountry').value=='Canada'){
+        postalControl.clearValidators();
+        postalControl.setValidators([Validators.required,Validators.pattern(this.canadianRegex)]);
+        postalControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+      }
+      else if(this.registerForm.get('custCountry').value=="USA"){
+        postalControl.clearValidators();
+        postalControl.setValidators([Validators.required,Validators.pattern(this.usaRegex)]);
+        postalControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+      }
+
     });
 
     emailControl.clearValidators();
