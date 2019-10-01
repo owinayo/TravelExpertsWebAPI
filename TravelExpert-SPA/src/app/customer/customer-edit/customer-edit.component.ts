@@ -2,9 +2,10 @@ import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
 import { Customer } from 'src/app/_models/Customer';
 import { ActivatedRoute } from '@angular/router';
 import { AlertifyService } from 'src/app/_services/alertify.service';
-import { NgForm, FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { NgForm, FormBuilder, Validators, FormGroup, AbstractControl } from '@angular/forms';
 import { CustomerService } from 'src/app/_services/customer.service';
 import { AuthService } from 'src/app/_services/auth.service';
+import { pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-edit',
@@ -249,12 +250,34 @@ export class CustomerEditComponent implements OnInit {
 
   ngOnInit() {
     this.createEditForm();
+    this.setConditionalValidators();
     this.route.data.subscribe(data=>{
       this.customer = data['Customer'];
       this.selectedCountry = this.customer.custCountry;
       this.selectedProvince = this.customer.custProv;
+
+      const emailControl = this.editForm.get('custEmail');
+      const busPhoneControl = this.editForm.get('custBusPhone');
+
+      emailControl.clearValidators();
+      emailControl.updateValueAndValidity();
+
+      busPhoneControl.clearValidators();
+      busPhoneControl.updateValueAndValidity();
+
+      if(this.customer.custEmail==null){
+        this.customer.custEmail='rewew';
+        this.customer.custEmail='';
+        console.log('here');
+      }
+      if(this.customer.custBusPhone==null){
+        this.customer.custBusPhone='rewew';
+        this.customer.custBusPhone='';
+      }
     });
+
     this.loadScript("../assets/scripts/customer-edit.component.js");
+
   }
 
   createEditForm(){
@@ -267,16 +290,56 @@ export class CustomerEditComponent implements OnInit {
       custPostal:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       custCountry:['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
       custHomePhone:['', [Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
-      custBusPhone:['', [Validators.minLength(10),Validators.maxLength(15)]],
-      custEmail:['', [Validators.minLength(5),Validators.maxLength(200),Validators.email]]
+      custBusPhone:[null,null],
+      custEmail:[null,null]
 
     });
   }
 
+  setConditionalValidators() {
+    const emailControl = this.editForm.get('custEmail');
+    const busPhoneControl = this.editForm.get('custBusPhone');
+
+
+
+    this.editForm.get('custEmail').valueChanges
+    .pipe(pairwise())
+    .subscribe(([prev, next]: [any, any]) => {
+        if(prev!=next){
+          if (next != '' && next != null) {
+            emailControl.setValidators([Validators.minLength(5),Validators.maxLength(200),Validators.email]);
+          }
+          else{
+            emailControl.clearValidators();
+            emailControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+          }
+        }
+      });
+
+    this.editForm.get('custBusPhone').valueChanges
+    .pipe(pairwise())
+    .subscribe(([prev, next]: [any, any]) => {
+      if(prev!=next){
+        if (next != '' && next != null) {
+          busPhoneControl.setValidators([Validators.minLength(10),Validators.maxLength(15)]);
+        }
+        else{
+          busPhoneControl.clearValidators();
+          busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+        }
+    }
+    });
+
+
+  }
+
   updateCustomer(){
+    console.log(this.showValidation());
     if(this.showValidation()){
       this.customer.custCountry = this.selectedCountry;
       this.customer.custProv = this.selectedProvince;
+      if(this.customer.custEmail==''){this.customer.custEmail= null;}
+      if(this.customer.custBusPhone==''){this.customer.custBusPhone= null;}
       this.customerService.updateCustomer(this.authService.decodedToken.nameid, this.customer).subscribe(next =>{
         this.alertify.success("You have updated your information successfully!");
         this.editForm.reset(this.customer);
@@ -307,9 +370,9 @@ export class CustomerEditComponent implements OnInit {
     var countryValid = this.editForm.get('custCountry').valid;
     var provinceValid = this.editForm.get('custProv').valid;
     var postalValid = this.editForm.get('custPostal').valid;
-    var emailValid = this.editForm.get('custEmail').valid;
+    var emailValid = this.editForm.get('custEmail').valid || this.editForm.get('custEmail').value=='';
     var homePhoneValid = this.editForm.get('custHomePhone').valid;
-    var busPhoneValid = this.editForm.get('custBusPhone').valid;
+    var busPhoneValid = this.editForm.get('custBusPhone').valid || this.editForm.get('custBusPhone').value=='';
 
 
     if(this.editForm.invalid){

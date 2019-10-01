@@ -36,10 +36,10 @@ namespace TravelExperts.API.Dtos
         [StringLength(15,MinimumLength=1,ErrorMessage="Specify a home phone number (max 15 chars)")]
         public string CustHomePhone { get; set; }
         
-        [StringLength(15,MinimumLength=1,ErrorMessage="Specify a business phone number (max 15 chars)")]
+        [StringLength(15,MinimumLength=0,ErrorMessage="Specify a business phone number (max 15 chars)")]
         public string CustBusPhone { get; set; }
         
-        [StringLength(200,MinimumLength=1,ErrorMessage="Specify an email")]
+        [StringLength(200,MinimumLength=0,ErrorMessage="Specify an email")]
         public string CustEmail { get; set; }
 
 

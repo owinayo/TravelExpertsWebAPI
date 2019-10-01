@@ -5,6 +5,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { Customer } from '../_models/Customer';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-register',
@@ -250,6 +251,8 @@ export class RegisterComponent implements OnInit {
     this.selectedCountry = "Canada";
     this.termsButtonClicked = false;
 
+    this.setConditionalValidators();
+
   }
 
   createRegisterForm(){
@@ -262,8 +265,8 @@ export class RegisterComponent implements OnInit {
       custPostal:['', [Validators.required,Validators.minLength(5),Validators.maxLength(7)]],
       custCountry:['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
       custHomePhone:['', [Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
-      custBusPhone:['', [Validators.minLength(10),Validators.maxLength(15)]],
-      custEmail:['', [Validators.minLength(5),Validators.maxLength(200),Validators.email]],
+      custBusPhone:[null, null],
+      custEmail:[null, null],
       termsAndConditions: ['', Validators.requiredTrue],
       username:['', [Validators.required,Validators.minLength(4),Validators.maxLength(200)]],
       password: ['', [Validators.required,Validators.minLength(4),Validators.maxLength(200)]],
@@ -283,6 +286,8 @@ export class RegisterComponent implements OnInit {
   register(){
     if(this.registerForm.valid){
       this.customer = Object.assign({}, this.registerForm.value);
+      if(this.customer.custBusPhone==''){this.customer.custBusPhone=null;}
+      if(this.customer.custEmail==''){this.customer.custEmail=null;}
       this.authService.register(this.customer).subscribe(()=>{
         this.alertify.success('Registration successful');
       }, error => {
@@ -309,9 +314,9 @@ export class RegisterComponent implements OnInit {
     var countryValid = this.registerForm.get('custCountry').valid;
     var provinceValid = this.registerForm.get('custProv').valid;
     var postalValid = this.registerForm.get('custPostal').valid;
-    var emailValid = this.registerForm.get('custEmail').valid;
+    var emailValid = this.registerForm.get('custEmail').valid || this.registerForm.get('custEmail').value == '' ||  this.registerForm.get('custEmail').value == null;
     var homePhoneValid = this.registerForm.get('custHomePhone').valid;
-    var busPhoneValid = this.registerForm.get('custBusPhone').valid;
+    var busPhoneValid = this.registerForm.get('custBusPhone').valid || this.registerForm.get('custBusPhone').value == '' || this.registerForm.get('custBusPhone').value == null;
     var usernameValid = this.registerForm.get('username').valid;
     var passwordValid = this.registerForm.get('password').valid;
     var passwordMatch = !this.registerForm.hasError('mismatch');
@@ -330,7 +335,6 @@ export class RegisterComponent implements OnInit {
       }
       if(!cityValid){
         this.alertify.error('Your city is required.');
-
       }
       if(!countryValid){
         this.alertify.error('Please choose a supported country.');
@@ -376,6 +380,39 @@ export class RegisterComponent implements OnInit {
   chooseCountry(){
     this.registerForm.controls['custProv'].setValue('');
     this.customer.custProv='';
+  }
+
+  setConditionalValidators() {
+    const emailControl = this.registerForm.get('custEmail');
+    const busPhoneControl = this.registerForm.get('custBusPhone');
+
+    this.registerForm.get('custEmail').valueChanges
+    .pipe(pairwise())
+    .subscribe(([prev, next]: [any, any]) => {
+        if(prev!=next){
+          if (next != '' && next != null) {
+            emailControl.setValidators([Validators.minLength(5),Validators.maxLength(200),Validators.email]);
+          }
+          else{
+            emailControl.clearValidators();
+            emailControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+          }
+        }
+      });
+
+    this.registerForm.get('custBusPhone').valueChanges
+    .pipe(pairwise())
+    .subscribe(([prev, next]: [any, any]) => {
+      if(prev!=next){
+        if (next != '' && next != null) {
+          busPhoneControl.setValidators([Validators.minLength(10),Validators.maxLength(15)]);
+        }
+        else{
+          busPhoneControl.clearValidators();
+          busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
+        }
+    }
+    });
   }
 
 

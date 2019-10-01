@@ -305,24 +305,26 @@ namespace TravelExperts.API.Data
                     .HasMaxLength(200);
 
                 entity.Property(e => e.CustBusPhone)
-                    .IsRequired()
                     .HasMaxLength(50);
 
                 entity.Property(e => e.CustCity)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.CustCountry).HasMaxLength(25);
+                entity.Property(e => e.CustCountry)
+                    .IsRequired()
+                    .HasMaxLength(25);
 
                 entity.Property(e => e.CustEmail)
-                    .IsRequired()
                     .HasMaxLength(255);
 
                 entity.Property(e => e.CustFirstName)
                     .IsRequired()
                     .HasMaxLength(50);
 
-                entity.Property(e => e.CustHomePhone).HasMaxLength(50);
+                entity.Property(e => e.CustHomePhone)
+                    .IsRequired()
+                    .HasMaxLength(50);
 
                 entity.Property(e => e.CustLastName)
                     .IsRequired()
