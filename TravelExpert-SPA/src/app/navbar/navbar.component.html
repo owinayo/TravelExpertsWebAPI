@@ -1,30 +1,39 @@
 <nav class="navbar is-fixed-top is-info" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" [routerLink]="['/home']" >
+    <a class="navbar-item" [routerLink]="['/home']">
       <img id="navLogo" src="../../assets/images/logo.png">
     </a>
 
-    <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
-      data-target="navbarBasicExample">
+    <a id="navbarBurger" role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false"
+      data-target="navbarBasicExample" (click)="toggleMobile()">
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
       <span aria-hidden="true"></span>
     </a>
   </div>
 
-  <div id="navbarBasicExample" class="navbar-menu">
+  <div id="navbarMenu" class="navbar-menu has-background-info">
     <div class="navbar-start">
-      <a class="navbar-item" [routerLink]="['/home']" routerLinkActive="router-link-active">
-        Home
+      <a class="navbar-item has-text-white is-size-5" [routerLink]="['/home']" routerLinkActive="router-link-active" (click)="toggleMobile()">
+        <i class="fas fa-home"></i>Home
       </a>
 
-      <a *ngIf="loggedIn()" class="navbar-item" [routerLink]="['/bookedPackages']" routerLinkActive="active">
-        Booked Packages
+      <a *ngIf="loggedIn()" class="navbar-item has-text-white is-size-5" [routerLink]="['/bookedPackages']" (click)="toggleMobile()"
+        routerLinkActive="active">
+        <i class="fas fa-umbrella-beach"></i>Booked Packages
+      </a>
+
+      <a *ngIf="loggedIn() && mobileView" class="navbar-item has-text-white is-size-5" [routerLink]="['/customer/edit']" (click)="toggleMobile()">
+        <i class="fas fa-user-edit"></i>Edit Profile
+      </a>
+
+      <a *ngIf="loggedIn() && mobileView" class="navbar-item has-text-white is-size-5" [routerLink]="['']" (click)="logout()">
+          <i class="fa fa-sign-out"></i>  Logout
       </a>
 
     </div>
 
-    <div class="navbar-end" *ngIf="loggedIn()">
+    <div class="navbar-end" *ngIf="loggedIn() && !mobileView">
       <div class="navbar-item">
         <div class="dropdown" id="dropdownNav">
           <div class="dropdown-trigger">
@@ -37,19 +46,18 @@
           </div>
           <div class="dropdown-menu" id="dropdown-menu3" role="menu">
             <div class="dropdown-content">
-              <a [routerLink]="['/customer/edit']"  class="dropdown-item" (click)="closeDropdown()">
+              <a [routerLink]="['/customer/edit']" class="dropdown-item" (click)="closeDropdown()">
                 <i class="fas fa-user-edit"> </i> Edit Profile
               </a>
               <hr class="dropdown-divider">
 
-              <a [routerLink]="['']" routerLinkActive="router-link-active"  class="dropdown-item" (click)="logout()">
+              <a [routerLink]="['']" routerLinkActive="router-link-active" class="dropdown-item" (click)="logout()">
                 <i class="fa fa-sign-out"> </i> Logout
               </a>
             </div>
           </div>
         </div>
       </div>
-
     </div>
 
     <div class="navbar-end" *ngIf="!loggedIn()">

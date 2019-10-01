@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { AuthService } from '../_services/auth.service';
 import { AlertifyService } from '../_services/alertify.service';
 import { Router } from '@angular/router';
@@ -10,12 +10,21 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent implements OnInit {
   model: any = {};
+  innerWidth: any;
+  mobileView: boolean;
+
+  @HostListener('window:resize', ['$event'])
+  onResize(event) {
+    this.innerWidth = window.innerWidth;
+    this.mobileView = this.innerWidth < 1024 ;
+  }
 
   constructor(public authService: AuthService, private alertify: AlertifyService,
     private router: Router) { }
 
   ngOnInit() {
-
+    this.innerWidth = window.innerWidth;
+    this.mobileView = this.innerWidth < 1024 ;
   }
 
   ngAfterViewInit(){
@@ -32,6 +41,7 @@ export class NavbarComponent implements OnInit {
 
       this.alertify.success('Logged in successfully');
       this.router.navigate(['/bookedPackages']);
+      this.toggleMobile();
     }, error =>{
       this.alertify.error(error);
     });
@@ -48,22 +58,12 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/home']);
     this.model.Username="";
     this.model.Password="";
+    this.toggleMobile();
   }
 
   addDropDownBehaviour(){
 
     this.loadScript('../assets/scripts/navbar.component.js');
-    /*
-    document.addEventListener('click', (e) => {
-      var dropdown = document.getElementsByClassName("dropdown-item");
-      for (let i = 0; i < dropdown.length; i++){
-      dropdown[i].addEventListener('click', ()=>{
-        var dropdown = document.querySelector('#dropdownNav');
-        dropdown.classList.toggle('is-active');
-      })
-    }
-    });
-    */
 
   }
 
@@ -80,6 +80,18 @@ export class NavbarComponent implements OnInit {
     script.async = false;
     script.defer = true;
     body.appendChild(script);
+  }
+
+  toggleMobile(){
+    if(this.mobileView){
+      // Toggle is-active on navbar burger and menu
+      const navbarBurger = document.getElementById("navbarBurger");
+      const navbarMenu = document.getElementById("navbarMenu")
+      navbarBurger.classList.toggle('is-active');
+      navbarMenu.classList.toggle('is-active');
+    }
+
+
   }
 
 

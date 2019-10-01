@@ -11,3 +11,10 @@
   padding-right: 20px;
 }
 
+.navbar-start>a.navbar-item:hover{
+  background-color: hsl(217, 71%, 53%);
+}
+
+i{
+  padding-right: 15px;
+}
