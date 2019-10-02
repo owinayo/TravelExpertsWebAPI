@@ -20,242 +20,243 @@ export class CustomerEditComponent implements OnInit {
   canadianRegex = new RegExp(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/);
   usaRegex = new RegExp(/^\d{5}$/);
 
-  countries = ["Canada", "USA"];
+  countries = ['Canada', 'USA'];
   provinces = [
-    {'country': 'Canada', 'value': "AB"},
-                      {'country': 'Canada', 'value': "BC"},
-                        {'country': 'Canada', 'value': "MB"},
-                    {'country': 'Canada', 'value': "NB"},
-                   {'country': 'Canada', 'value': "NL"},
-                       {'country': 'Canada', 'value': "NS"},
-                    {'country': 'Canada', 'value': "NT"},
-                       {'country': 'Canada', 'value': "NU"},
-                 {'country': 'Canada', 'value': "ON"},
- {'country': 'Canada', 'value': "PE"},
- {'country': 'Canada', 'value': "QC"},
- {'country': 'Canada', 'value': "SK"},
- {'country': 'Canada', 'value': "YT"},
+    {country: 'Canada', value: 'AB'},
+                      {country: 'Canada', value: 'BC'},
+                        {country: 'Canada', value: 'MB'},
+                    {country: 'Canada', value: 'NB'},
+                   {country: 'Canada', value: 'NL'},
+                       {country: 'Canada', value: 'NS'},
+                    {country: 'Canada', value: 'NT'},
+                       {country: 'Canada', value: 'NU'},
+                 {country: 'Canada', value: 'ON'},
+ {country: 'Canada', value: 'PE'},
+ {country: 'Canada', value: 'QC'},
+ {country: 'Canada', value: 'SK'},
+ {country: 'Canada', value: 'YT'},
  {
-  "country": "USA",
-  "value": "AL"
+  country: 'USA',
+  value: 'AL'
 },
 {
-  "country": "USA",
-  "value": "AK"
+  country: 'USA',
+  value: 'AK'
 },
 {
-  "country": "USA",
-  "value": "AZ"
+  country: 'USA',
+  value: 'AZ'
 },
 {
-  "country": "USA",
-  "value": "AR"
+  country: 'USA',
+  value: 'AR'
 },
 {
-  "country": "USA",
-  "value": "CA"
+  country: 'USA',
+  value: 'CA'
 },
 {
-  "country": "USA",
-  "value": "CO"
+  country: 'USA',
+  value: 'CO'
 },
 {
-  "country": "USA",
-  "value": "CT"
+  country: 'USA',
+  value: 'CT'
 },
 {
-  "country": "USA",
-  "value": "DE"
+  country: 'USA',
+  value: 'DE'
 },
 {
-  "country": "USA",
-  "value": "DC"
+  country: 'USA',
+  value: 'DC'
 },
 {
-  "country": "USA",
-  "value": "FL"
+  country: 'USA',
+  value: 'FL'
 },
 {
-  "country": "USA",
-  "value": "GA"
+  country: 'USA',
+  value: 'GA'
 },
 {
-  "country": "USA",
-  "value": "HI"
+  country: 'USA',
+  value: 'HI'
 },
 {
-  "country": "USA",
-  "value": "ID"
+  country: 'USA',
+  value: 'ID'
 },
 {
-  "country": "USA",
-  "value": "IL"
+  country: 'USA',
+  value: 'IL'
 },
 {
-  "country": "USA",
-  "value": "IN"
+  country: 'USA',
+  value: 'IN'
 },
 {
-  "country": "USA",
-  "value": "IA"
+  country: 'USA',
+  value: 'IA'
 },
 {
-  "country": "USA",
-  "value": "KS"
+  country: 'USA',
+  value: 'KS'
 },
 {
-  "country": "USA",
-  "value": "KY"
+  country: 'USA',
+  value: 'KY'
 },
 {
-  "country": "USA",
-  "value": "LA"
+  country: 'USA',
+  value: 'LA'
 },
 {
-  "country": "USA",
-  "value": "ME"
+  country: 'USA',
+  value: 'ME'
 },
 {
-  "country": "USA",
-  "value": "MD"
+  country: 'USA',
+  value: 'MD'
 },
 {
-  "country": "USA",
-  "value": "MA"
+  country: 'USA',
+  value: 'MA'
 },
 {
-  "country": "USA",
-  "value": "MI"
+  country: 'USA',
+  value: 'MI'
 },
 {
-  "country": "USA",
-  "value": "MN"
+  country: 'USA',
+  value: 'MN'
 },
 {
-  "country": "USA",
-  "value": "MS"
+  country: 'USA',
+  value: 'MS'
 },
 {
-  "country": "USA",
-  "value": "MO"
+  country: 'USA',
+  value: 'MO'
 },
 {
-  "country": "USA",
-  "value": "MT"
+  country: 'USA',
+  value: 'MT'
 },
 {
-  "country": "USA",
-  "value": "NE"
+  country: 'USA',
+  value: 'NE'
 },
 {
-  "country": "USA",
-  "value": "NV"
+  country: 'USA',
+  value: 'NV'
 },
 {
-  "country": "USA",
-  "value": "NH"
+  country: 'USA',
+  value: 'NH'
 },
 {
-  "country": "USA",
-  "value": "NJ"
+  country: 'USA',
+  value: 'NJ'
 },
 {
-  "country": "USA",
-  "value": "NM"
+  country: 'USA',
+  value: 'NM'
 },
 {
-  "country": "USA",
-  "value": "NY"
+  country: 'USA',
+  value: 'NY'
 },
 {
-  "country": "USA",
-  "value": "NC"
+  country: 'USA',
+  value: 'NC'
 },
 {
-  "country": "USA",
-  "value": "ND"
+  country: 'USA',
+  value: 'ND'
 },
 {
-  "country": "USA",
-  "value": "OH"
+  country: 'USA',
+  value: 'OH'
 },
 {
-  "country": "USA",
-  "value": "OK"
+  country: 'USA',
+  value: 'OK'
 },
 {
-  "country": "USA",
-  "value": "OR"
+  country: 'USA',
+  value: 'OR'
 },
 {
-  "country": "USA",
-  "value": "PA"
+  country: 'USA',
+  value: 'PA'
 },
 {
-  "country": "USA",
-  "value": "RI"
+  country: 'USA',
+  value: 'RI'
 },
 {
-  "country": "USA",
-  "value": "SC"
+  country: 'USA',
+  value: 'SC'
 },
 {
-  "country": "USA",
-  "value": "SD"
+  country: 'USA',
+  value: 'SD'
 },
 {
-  "country": "USA",
-  "value": "TN"
+  country: 'USA',
+  value: 'TN'
 },
 {
-  "country": "USA",
-  "value": "TX"
+  country: 'USA',
+  value: 'TX'
 },
 {
-  "country": "USA",
-  "value": "UT"
+  country: 'USA',
+  value: 'UT'
 },
 {
-  "country": "USA",
-  "value": "VT"
+  country: 'USA',
+  value: 'VT'
 },
 {
-  "country": "USA",
-  "value": "VA"
+  country: 'USA',
+  value: 'VA'
 },
 {
-  "country": "USA",
-  "value": "WA"
+  country: 'USA',
+  value: 'WA'
 },
 {
-  "country": "USA",
-  "value": "WV"
+  country: 'USA',
+  value: 'WV'
 },
 {
-  "country": "USA",
-  "value": "WI"
+  country: 'USA',
+  value: 'WI'
 },
 {
-  "country": "USA",
-  "value": "WY"
+  country: 'USA',
+  value: 'WY'
 }
-  ]
-  @HostListener('window:beforeunload',['$event'])
-  unloadNotification($event: any){
-    if(this.editForm.dirty){
+  ];
+  @HostListener('window:beforeunload', ['$event'])
+  unloadNotification($event: any) {
+    if (this.editForm.dirty) {
       $event.returnValue = true;
     }
   }
 
   constructor(private route: ActivatedRoute, private alertify: AlertifyService,
-    private authService: AuthService, private customerService: CustomerService,
-    private formBuilder: FormBuilder) { }
+              private authService: AuthService, private customerService: CustomerService,
+              private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.createEditForm();
     this.setConditionalValidators();
-    this.route.data.subscribe(data=>{
-      this.customer = data['Customer'];
+    this.initializeDeleteFunctionality();
+    this.route.data.subscribe(data => {
+      this.customer = data.Customer;
       this.selectedCountry = this.customer.custCountry;
       this.selectedProvince = this.customer.custProv;
 
@@ -268,33 +269,33 @@ export class CustomerEditComponent implements OnInit {
       busPhoneControl.clearValidators();
       busPhoneControl.updateValueAndValidity();
 
-      if(this.customer.custEmail==null){
-        this.customer.custEmail='rewew';
-        this.customer.custEmail='';
+      if (this.customer.custEmail == null) {
+        this.customer.custEmail = 'rewew';
+        this.customer.custEmail = '';
         console.log('here');
       }
-      if(this.customer.custBusPhone==null){
-        this.customer.custBusPhone='rewew';
-        this.customer.custBusPhone='';
+      if (this.customer.custBusPhone == null) {
+        this.customer.custBusPhone = 'rewew';
+        this.customer.custBusPhone = '';
       }
     });
 
-    this.loadScript("../assets/scripts/customer-edit.component.js");
+    this.loadScript('../assets/scripts/customer-edit.component.js');
 
   }
 
-  createEditForm(){
+  createEditForm() {
     this.editForm = this.formBuilder.group({
       custFirstName: ['', [Validators.required, Validators.minLength(1)]],
       custLastName: ['', [Validators.required, Validators.minLength(1)]],
-      custAddress:['', [Validators.required,Validators.minLength(1),Validators.maxLength(200)]],
-      custCity:['', [Validators.required,Validators.minLength(1),Validators.maxLength(200)]],
-      custProv:['', [Validators.required,Validators.minLength(2),Validators.maxLength(2)]],
-      custPostal:['', [Validators.required,Validators.pattern(this.canadianRegex)]],
-      custCountry:['', [Validators.required,Validators.minLength(1),Validators.maxLength(50)]],
-      custHomePhone:['', [Validators.required,Validators.minLength(10),Validators.maxLength(15)]],
-      custBusPhone:[null,null],
-      custEmail:[null,null]
+      custAddress: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      custCity: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(200)]],
+      custProv: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
+      custPostal: ['', [Validators.required, Validators.pattern(this.canadianRegex)]],
+      custCountry: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
+      custHomePhone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
+      custBusPhone: [null, null],
+      custEmail: [null, null]
 
     });
   }
@@ -309,11 +310,10 @@ export class CustomerEditComponent implements OnInit {
     this.editForm.get('custEmail').valueChanges
     .pipe(pairwise())
     .subscribe(([prev, next]: [any, any]) => {
-        if(prev!=next){
+        if (prev != next) {
           if (next != '' && next != null) {
-            emailControl.setValidators([Validators.minLength(5),Validators.maxLength(200),Validators.email]);
-          }
-          else{
+            emailControl.setValidators([Validators.minLength(5), Validators.maxLength(200), Validators.email]);
+          } else {
             emailControl.clearValidators();
             emailControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
           }
@@ -323,11 +323,10 @@ export class CustomerEditComponent implements OnInit {
     this.editForm.get('custBusPhone').valueChanges
     .pipe(pairwise())
     .subscribe(([prev, next]: [any, any]) => {
-      if(prev!=next){
+      if (prev != next) {
         if (next != '' && next != null) {
-          busPhoneControl.setValidators([Validators.minLength(10),Validators.maxLength(15)]);
-        }
-        else{
+          busPhoneControl.setValidators([Validators.minLength(10), Validators.maxLength(15)]);
+        } else {
           busPhoneControl.clearValidators();
           busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
         }
@@ -336,14 +335,13 @@ export class CustomerEditComponent implements OnInit {
 
     this.editForm.get('custCountry').valueChanges
     .subscribe((value) => {
-      if(this.editForm.get('custCountry').value=='Canada'){
+      if (this.editForm.get('custCountry').value == 'Canada') {
         postalControl.clearValidators();
-        postalControl.setValidators([Validators.required,Validators.pattern(this.canadianRegex)]);
+        postalControl.setValidators([Validators.required, Validators.pattern(this.canadianRegex)]);
         postalControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
-      }
-      else if(this.editForm.get('custCountry').value=="USA"){
+      } else if (this.editForm.get('custCountry').value == 'USA') {
         postalControl.clearValidators();
-        postalControl.setValidators([Validators.required,Validators.pattern(this.usaRegex)]);
+        postalControl.setValidators([Validators.required, Validators.pattern(this.usaRegex)]);
         postalControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
       }
 
@@ -352,25 +350,25 @@ export class CustomerEditComponent implements OnInit {
 
   }
 
-  updateCustomer(){
-    if(this.showValidation()){
+  updateCustomer() {
+    if (this.showValidation()) {
       this.customer.custCountry = this.selectedCountry;
       this.customer.custProv = this.selectedProvince;
-      if(this.customer.custEmail==''){this.customer.custEmail= null;}
-      if(this.customer.custBusPhone==''){this.customer.custBusPhone= null;}
-      this.customerService.updateCustomer(this.authService.decodedToken.nameid, this.customer).subscribe(next =>{
-        this.alertify.success("You have updated your information successfully!");
+      if (this.customer.custEmail == '') {this.customer.custEmail = null; }
+      if (this.customer.custBusPhone == '') {this.customer.custBusPhone = null; }
+      this.customerService.updateCustomer(this.authService.decodedToken.nameid, this.customer).subscribe(next => {
+        this.alertify.success('You have updated your information successfully!');
         this.editForm.reset(this.customer);
       },
-      error =>{
-        this.alertify.error("Oh no! Aliens are preventing your user profile from being updated.");
+      error => {
+        this.alertify.error('Oh no! Aliens are preventing your user profile from being updated.');
       });
     }
 
   }
 
   public loadScript(url: string) {
-    const body = <HTMLDivElement> document.body;
+    const body = document.body as HTMLDivElement;
     const script = document.createElement('script');
     script.innerHTML = '';
     script.src = url;
@@ -379,51 +377,51 @@ export class CustomerEditComponent implements OnInit {
     body.appendChild(script);
   }
 
-  showValidation(){
+  showValidation() {
 
-    var firstNameValid = this.editForm.get('custFirstName').valid;
-    var lastNameValid = this.editForm.get('custLastName').valid;
-    var addressValid = this.editForm.get('custAddress').valid;
-    var cityValid = this.editForm.get('custCity').valid;
-    var countryValid = this.editForm.get('custCountry').valid;
-    var provinceValid = this.editForm.get('custProv').valid;
-    var postalValid = this.editForm.get('custPostal').valid;
-    var emailValid = this.editForm.get('custEmail').valid || this.editForm.get('custEmail').value=='';
-    var homePhoneValid = this.editForm.get('custHomePhone').valid;
-    var busPhoneValid = this.editForm.get('custBusPhone').valid || this.editForm.get('custBusPhone').value=='';
+    const firstNameValid = this.editForm.get('custFirstName').valid;
+    const lastNameValid = this.editForm.get('custLastName').valid;
+    const addressValid = this.editForm.get('custAddress').valid;
+    const cityValid = this.editForm.get('custCity').valid;
+    const countryValid = this.editForm.get('custCountry').valid;
+    const provinceValid = this.editForm.get('custProv').valid;
+    const postalValid = this.editForm.get('custPostal').valid;
+    const emailValid = this.editForm.get('custEmail').valid || this.editForm.get('custEmail').value == '';
+    const homePhoneValid = this.editForm.get('custHomePhone').valid;
+    const busPhoneValid = this.editForm.get('custBusPhone').valid || this.editForm.get('custBusPhone').value == '';
 
 
-    if(this.editForm.invalid){
-      if(!firstNameValid){
+    if (this.editForm.invalid) {
+      if (!firstNameValid) {
         this.alertify.error('Your first name is required.');
       }
-      if(!lastNameValid){
+      if (!lastNameValid) {
         this.alertify.error('Your last name is required.');
       }
-      if(!addressValid){
+      if (!addressValid) {
         this.alertify.error('Your address is required.');
       }
-      if(!cityValid){
+      if (!cityValid) {
         this.alertify.error('Your city is required.');
 
       }
-      if(!countryValid){
+      if (!countryValid) {
         this.alertify.error('Please choose a supported country.');
       }
-      if(!provinceValid){
-        this.alertify.error("Province/State must be a 2 letter code");
+      if (!provinceValid) {
+        this.alertify.error('Province/State must be a 2 letter code');
       }
-      if(!postalValid){
-        this.alertify.error("Your postal/zip code is required or in an incorrect format");
+      if (!postalValid) {
+        this.alertify.error('Your postal/zip code is required or in an incorrect format');
       }
-      if(!emailValid){
-        this.alertify.error("Your email is invalid.");
+      if (!emailValid) {
+        this.alertify.error('Your email is invalid.');
       }
-      if(!homePhoneValid){
-        this.alertify.error("Your home phone is invalid");
+      if (!homePhoneValid) {
+        this.alertify.error('Your home phone is invalid');
       }
-      if(!busPhoneValid){
-        this.alertify.error("Your business phone is invalid");
+      if (!busPhoneValid) {
+        this.alertify.error('Your business phone is invalid');
       }
 
       return false;
@@ -433,13 +431,25 @@ export class CustomerEditComponent implements OnInit {
 
   }
 
-  filterProvinces(){
+  filterProvinces() {
     return this.provinces.filter(p => p.country == this.selectedCountry);
   }
 
-  chooseCountry(){
-    this.editForm.controls['custProv'].setValue('');
-    this.customer.custProv='';
+  chooseCountry() {
+    this.editForm.controls.custProv.setValue('');
+    this.customer.custProv = '';
+  }
+
+  initializeDeleteFunctionality(){
+    document.addEventListener('DOMContentLoaded', () => {
+      (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
+        let notification = $delete.parentNode;
+        $delete.addEventListener('click', () => {
+          notification.parentNode.removeChild(notification);
+        });
+      });
+    });
+
   }
 
 

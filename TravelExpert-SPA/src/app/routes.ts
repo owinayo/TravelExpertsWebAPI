@@ -8,7 +8,7 @@ import { PreventUnsavedChanges } from './_guards/prevent-unsaved-changes.guard';
 import { BookedPackagesResolver } from './_resolvers/booked-packages.resolver';
 
 export const appRoutes: Routes = [
-  { path: 'home', component: HomeComponent},
+  { path: '', component: HomeComponent},
   {
     path: '',
     runGuardsAndResolvers: 'always',

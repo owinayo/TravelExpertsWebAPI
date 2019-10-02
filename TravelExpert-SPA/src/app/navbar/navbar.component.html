@@ -1,6 +1,6 @@
 <nav class="navbar is-fixed-top is-info" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" [routerLink]="['/home']">
+    <a class="navbar-item" [routerLink]="['']">
       <img id="navLogo" src="../../assets/images/logo.png">
     </a>
 
@@ -14,7 +14,7 @@
 
   <div id="navbarMenu" class="navbar-menu has-background-info">
     <div class="navbar-start">
-      <a class="navbar-item has-text-white is-size-5" [routerLink]="['/home']" routerLinkActive="router-link-active" (click)="toggleMobile()">
+      <a class="navbar-item has-text-white is-size-5" [routerLink]="['']" routerLinkActive="router-link-active" (click)="toggleMobile()">
         <i class="fas fa-home"></i>Home
       </a>
 
@@ -37,7 +37,7 @@
       <div class="navbar-item">
         <div class="dropdown" id="dropdownNav">
           <div class="dropdown-trigger">
-            <button class="button dropdownButton is-link" aria-haspopup="true" aria-controls="dropdown-menu3">
+            <button class="button dropdownButton is-link" aria-haspopup="true" aria-controls="dropdown-menu3" (click)="addDropDownBehaviour()">
               <span class="is-size-6">Welcome {{authService.decodedToken?.unique_name}}</span>
               <span class="icon is-small">
                 <i class="fas fa-angle-down" aria-hidden="true"></i>

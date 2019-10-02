@@ -19,15 +19,15 @@ export class BookedPackagesComponent implements OnInit {
     this.calculateTotal();
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.addColumnFormatting();
   }
 
 
 
   getPackages() {
-    this.route.data.subscribe(data=>{
-      this.packages = data["BookedPackages"];
+    this.route.data.subscribe(data => {
+      this.packages = data.BookedPackages;
     });
 
 
@@ -39,27 +39,27 @@ export class BookedPackagesComponent implements OnInit {
     });*/
   }
 
-  calculateTotal(){
+  calculateTotal() {
     this.totalCost = 0;
     this.packages.forEach(pkg => {
-      this.totalCost+=pkg.pkgBasePrice;
+      this.totalCost += pkg.pkgBasePrice;
     });
   }
 
-  addColumnFormatting(){
-    var cards = document.getElementsByClassName("column");
-    var parent = cards[0].parentElement;
-    var columnCounter = 3;
-    var columnsElement;
+  addColumnFormatting() {
+    const cards = document.getElementsByClassName('column');
+    const parent = cards[0].parentElement;
+    let columnCounter = 3;
+    let columnsElement;
 
-    var i = 0;
-    var il = cards.length;
+    let i = 0;
+    const il = cards.length;
 
-    while(i<il){
-      if(columnCounter===3){
+    while (i < il) {
+      if (columnCounter === 3) {
         columnCounter = 0;
-        columnsElement = document.createElement("div");
-        columnsElement.className+="columns";
+        columnsElement = document.createElement('div');
+        columnsElement.className += 'columns';
         parent.appendChild(columnsElement);
       }
 
@@ -68,9 +68,9 @@ export class BookedPackagesComponent implements OnInit {
       columnCounter++;
     }
 
-    while(columnCounter!=3){
-      let emptyColumn = document.createElement("div");
-      emptyColumn.className+="column";
+    while (columnCounter != 3) {
+      const emptyColumn = document.createElement('div');
+      emptyColumn.className += 'column';
       columnsElement.appendChild(emptyColumn);
       columnCounter++;
     }

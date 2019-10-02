@@ -34,3 +34,7 @@ html,.footerFit {
 .hero-background.is-transparent {
   opacity: 0.3;
 }
+
+.hero.is-large{
+  min-height: 90vh;
+ }

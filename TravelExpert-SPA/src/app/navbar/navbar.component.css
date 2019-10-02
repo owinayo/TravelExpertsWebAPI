@@ -2,6 +2,13 @@
   margin-left: 10%;
 }
 
+@media screen and (max-width: 1023px) {
+  .button.is-link{
+    margin-left: 0px;
+    margin-top: 3%;
+  }
+ }
+
 #navLogo {
   max-height: 4.5rem;
   filter:hue-rotate(20deg);

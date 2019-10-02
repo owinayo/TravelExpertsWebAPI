@@ -15,17 +15,17 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
   }
 
-  loggedIn(){
+  loggedIn() {
     return this.authService.loggedIn();
   }
 
 
 
-  toggleRegisterMode(){
+  toggleRegisterMode() {
     this.registerMode = true;
   }
 
-  cancelRegisterMode(registerMode: boolean){
+  cancelRegisterMode(registerMode: boolean) {
     this.registerMode = registerMode;
   }
 

@@ -20,60 +20,63 @@ export class NavbarComponent implements OnInit {
   }
 
   constructor(public authService: AuthService, private alertify: AlertifyService,
-    private router: Router) { }
+              private router: Router) { }
 
   ngOnInit() {
     this.innerWidth = window.innerWidth;
     this.mobileView = this.innerWidth < 1024 ;
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.addDropDownBehaviour();
   }
 
-  ngOnChanges(){
+  ngOnChanges() {
     this.addDropDownBehaviour();
   }
 
 
-  login(){
-    this.authService.login(this.model).subscribe(next =>{
+  login() {
+    this.authService.login(this.model).subscribe(next => {
 
       this.alertify.success('Logged in successfully');
       this.router.navigate(['/bookedPackages']);
       this.toggleMobile();
-    }, error =>{
+    }, error => {
       this.alertify.error(error);
     });
 
   }
 
-  loggedIn(){
+  loggedIn() {
     return this.authService.loggedIn();
   }
 
-  logout(){
+  logout() {
     localStorage.removeItem('token');
     this.alertify.message('Logged out.');
     this.router.navigate(['/home']);
-    this.model.Username="";
-    this.model.Password="";
+    this.model.Username = '';
+    this.model.Password = '';
     this.toggleMobile();
   }
 
-  addDropDownBehaviour(){
-
-    this.loadScript('../assets/scripts/navbar.component.js');
-
-  }
-
-  closeDropdown(){
+  addDropDownBehaviour() {
     var dropdown = document.querySelector('#dropdownNav');
     dropdown.classList.toggle('is-active');
   }
 
+  hasClass(elem, className) {
+    return elem.className.split(' ').indexOf(className) > -1;
+  }
+
+  closeDropdown() {
+    const dropdown = document.querySelector('#dropdownNav');
+    dropdown.classList.toggle('is-active');
+  }
+
   loadScript(url: string) {
-    const body = <HTMLDivElement> document.body;
+    const body = document.body as HTMLDivElement;
     const script = document.createElement('script');
     script.innerHTML = '';
     script.src = url;
@@ -82,17 +85,18 @@ export class NavbarComponent implements OnInit {
     body.appendChild(script);
   }
 
-  toggleMobile(){
-    if(this.mobileView){
+  toggleMobile() {
+    if (this.mobileView) {
       // Toggle is-active on navbar burger and menu
-      const navbarBurger = document.getElementById("navbarBurger");
-      const navbarMenu = document.getElementById("navbarMenu")
+      const navbarBurger = document.getElementById('navbarBurger');
+      const navbarMenu = document.getElementById('navbarMenu');
       navbarBurger.classList.toggle('is-active');
       navbarMenu.classList.toggle('is-active');
     }
 
-
   }
+
+
 
 
 }
