@@ -264,6 +264,7 @@ export class CustomerEditComponent implements OnInit {
     // Get customer data from customer edit resolver
     this.route.data.subscribe(data => {
       this.customer = data.Customer; // from resolver (data is like a session variable, match key for resolver as specified in routes.ts)
+      this.oldCustomer = JSON.parse(JSON.stringify(this.customer)); // Deep copies customer by stringifying and parsing it
       // sets model country and province
       this.selectedCountry = this.customer.custCountry;
       this.selectedProvince = this.customer.custProv;
@@ -375,8 +376,9 @@ export class CustomerEditComponent implements OnInit {
       if (this.customer.custEmail == '') {this.customer.custEmail = null; }
       if (this.customer.custBusPhone == '') {this.customer.custBusPhone = null; }
       // uses service to update customer
-      this.customerService.updateCustomer(this.authService.decodedToken.nameid, this.customer).subscribe(next => {
+      this.customerService.updateCustomer(this.authService.decodedToken.nameid, [ this.oldCustomer, this.customer]).subscribe(next => {
         this.alertify.success('You have updated your information successfully!');
+        this.oldCustomer = JSON.parse(JSON.stringify(this.customer)); // Deep copies updated customer by stringifying and parsing it
         this.editForm.reset(this.customer);
       },
       error => {
@@ -465,6 +467,7 @@ export class CustomerEditComponent implements OnInit {
     });
 
   }
+
 
 
 

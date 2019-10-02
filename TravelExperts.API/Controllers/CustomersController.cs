@@ -43,10 +43,16 @@ namespace TravelExperts.API.Controllers
         }
 
         // Updates customer given id and update dto(this does not contain id)
-        // PUT api/values/5
+        // PUT api/customers/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, CustomerForUpdateDto oldCustomerInformationDto, CustomerForUpdateDto newCustomerInformationDto)
+        public async Task<IActionResult> UpdateCustomer(int id, CustomerForUpdateDto[] customerInformationDto)
         {
+            CustomerForUpdateDto oldCustomerInformationDto = customerInformationDto[0]; // first entry in body request is old customer info
+            CustomerForUpdateDto newCustomerInformationDto = customerInformationDto[1]; // second entry is new customer info
+            if(oldCustomerInformationDto== null || newCustomerInformationDto == null){
+                throw new Exception($"Error updating user {id} . Failed on information processing.");
+            }
+
             // Checks that the id is for the currently logged in customer, otherwise unauthorized
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
                 return Unauthorized();

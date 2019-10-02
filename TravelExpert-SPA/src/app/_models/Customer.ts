@@ -12,4 +12,5 @@ export class Customer { // Customer information (available to user for editing)
       custEmail: string; // Email (optional)
       Username: string; // Username
       AgentId?: number; // Agent id if assigned
+      
 }
