@@ -45,22 +45,24 @@ namespace TravelExperts.API.Controllers
         // Updates customer given id and update dto(this does not contain id)
         // PUT api/values/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateCustomer(int id, CustomerForUpdateDto customerForUpdateDto)
+        public async Task<IActionResult> UpdateCustomer(int id, CustomerForUpdateDto oldCustomerInformationDto, CustomerForUpdateDto newCustomerInformationDto)
         {
             // Checks that the id is for the currently logged in customer, otherwise unauthorized
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
                 return Unauthorized();
             }
 
-            var customerFromRepo = await repo.GetCustomer(id); // Returns customer reference in db with the same id
+            // Maps the old customer information to a customers model
+            Customers oldCustomer = new Customers();
+            mapper.Map(oldCustomerInformationDto, oldCustomer);
+            oldCustomer.CustomerId = id; // assign the customer id
 
-            mapper.Map(customerForUpdateDto, customerFromRepo); // Pushes all updated properties to customer reference in db
             // Tries to save changes
-            if (await repo.SaveAll()){
+            if (await repo.EditCustomer(oldCustomer, newCustomerInformationDto)!=null){
                 return NoContent();
             }
 
-            // If unsucessful, throw exception that we failed to save
+            // If unsuccessful, throw exception that we failed to save
             throw new Exception($"Updating user {id} failed on save");
         }
 

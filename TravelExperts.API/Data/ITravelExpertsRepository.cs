@@ -2,6 +2,7 @@ using System;
 using TravelExperts.API.Model;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using TravelExperts.API.Dtos;
 
 namespace TravelExperts.API.Data
 {
@@ -15,7 +16,7 @@ namespace TravelExperts.API.Data
 
         Task<Customers> GetCustomer(int id); // Gets the given customer from id
 
-        Task<Customers> EditCustomer(Customers oldCustomer, Customers newCustomer);  // Edits the customer (optimistic concurrency handled)
+        Task<Customers> EditCustomer(Customers oldCustomer, CustomerForUpdateDto newCustomer);  // Edits the customer (concurrency handled)
 
         Task<IEnumerable<Packages>> GetAllAvailablePackages(); // Gets all available packages
 
