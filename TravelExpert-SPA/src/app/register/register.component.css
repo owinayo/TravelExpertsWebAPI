@@ -1,12 +1,15 @@
+/* Sets form width and centers it */
 #registerForm{
   width: 75%;
   margin: auto;
 }
 
+/* Formats select fields to take available space */
 div.select, select{
   width: -webkit-fill-available;
 }
 
+/* Gives padding to sections */
 section.section{
   padding-top: 2%;
 }

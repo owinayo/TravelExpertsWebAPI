@@ -4,9 +4,12 @@
     <div id="editFormBody" class="container hero-body">
       <h2 class="is-size-2 has-text-centered">Welcome {{customer.custFirstName}}!</h2> <br />
       <h3 class="is-size-4">Please edit your profile below:</h3>
+      <!-- Notification for unsaved changes if form is edited -->
       <div *ngIf="editForm.dirty" class="notification is-info">
         <strong>You have unsaved changes. Any unsaved changes will be lost.</strong>
       </div>
+      <!-- Form identified as edit form -->
+      <!-- Each field is linked by ngmodel to the customer class in this component -->
       <form [formGroup]="editForm" id="editForm" (ngSubmit)="updateCustomer()">
         <div class="columns">
           <div class="field column">
@@ -70,6 +73,7 @@
             <div class="control has-icons-left">
 
               <div class="select">
+                <!-- On change, run choose country method to assign country to customer model and make appropriate prov/state available -->
                 <select formControlName="custCountry" [(ngModel)]="selectedCountry" (change)="chooseCountry()"> Country
                   <option *ngFor="let c of countries" [value]="c">{{c}}</option>
                 </select>
@@ -81,6 +85,7 @@
           </div>
 
           <div class="field column">
+            <!-- Province or state label depending on selected country -->
             <label *ngIf="selectedCountry=='Canada'" class="label">Province</label>
             <label *ngIf="selectedCountry=='USA'" class="label">State</label>
             <div class="control has-icons-left">
@@ -88,6 +93,7 @@
               <div class="select">
                 <select formControlName="custProv" [(ngModel)]="selectedProvince"> Country
                   <option value="" disabled="disabled">Choose Province/State</option>
+                  <!-- Populates all available choices based on selected country (filterprovinces method) -->
                   <option *ngFor="let p of filterProvinces()" [value]="p.value">{{p.value}}</option>
                 </select>
               </div>
@@ -150,8 +156,7 @@
         </div>
 
 
-
-
+        <!-- Save changes button that is enabled when the form has been changed -->
         <div class="field is-grouped">
           <div class="control">
             <button [disabled]="!editForm.dirty" form="editForm" class="button is-success" type="submit">Save

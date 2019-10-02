@@ -1,7 +1,9 @@
+/* formats button for desktop page */
 .button.is-link{
   margin-left: 10%;
 }
 
+/* formats buttons for mobile page */
 @media screen and (max-width: 1023px) {
   .button.is-link{
     margin-left: 0px;
@@ -9,19 +11,23 @@
   }
  }
 
+ /* formats logo and colors it */
 #navLogo {
   max-height: 4.5rem;
   filter:hue-rotate(20deg);
 }
 
+/* adds padding to end of navbar */
 .navbar-end{
   padding-right: 20px;
 }
 
+/* changes on hover color for navbar links */
 .navbar-start>a.navbar-item:hover{
   background-color: hsl(217, 71%, 53%);
 }
 
+/* add padding to icons */
 i{
   padding-right: 15px;
 }

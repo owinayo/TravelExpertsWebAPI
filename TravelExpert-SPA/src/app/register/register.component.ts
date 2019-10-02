@@ -7,23 +7,25 @@ import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { pairwise } from 'rxjs/operators';
 
+// Component for register form
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  @Output() cancelRegister = new EventEmitter();
-  customer: Customer;
-  registerForm: FormGroup;
-  termsButtonClicked: boolean;
-  canadianRegex = new RegExp(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/);
-  usaRegex = new RegExp(/^\d{5}$/);
+  @Output() cancelRegister = new EventEmitter(); // Holds events for cancel button
+  customer: Customer; // Customer to register
+  registerForm: FormGroup; // form that is created
+  termsButtonClicked: boolean; // Holds state of terms & conditions being clicked/closed
+  canadianRegex = new RegExp(/^[A-Za-z]\d[A-Za-z][ -]?\d[A-Za-z]\d$/); // canadian postal regex
+  usaRegex = new RegExp(/^\d{5}$/); // usa postal regex
 
-  selectedCountry;
-  selectedProvince;
-  countries = ['Canada', 'USA'];
-  provinces = [
+  selectedCountry; // selected country
+  selectedProvince; // selected province
+
+  countries = ['Canada', 'USA']; // available countries to select from
+  provinces = [ // available provinces to select from
     {country: 'Canada', value: 'AB'},
                       {country: 'Canada', value: 'BC'},
                         {country: 'Canada', value: 'MB'},
@@ -242,21 +244,26 @@ export class RegisterComponent implements OnInit {
   'value': 'WY'
 }];
 
+// Gets all required services
   constructor(private authService: AuthService, private httpClient: HttpClient, private router: Router,
               private alertify: AlertifyService, private fb: FormBuilder) {
-
       }
 
+      // Creates form on init
   ngOnInit() {
+    // creates new customer and form
     this.customer = new Customer();
     this.createRegisterForm();
+    // choose canada by default
     this.selectedCountry = 'Canada';
     this.termsButtonClicked = false;
 
+    // sets conditional validator behaviour for optional fields
     this.setConditionalValidators();
 
   }
 
+  // Creates register form with desired validators
   createRegisterForm() {
     this.registerForm = this.fb.group({
       custFirstName: ['', [Validators.required, Validators.minLength(1)]],
@@ -266,7 +273,7 @@ export class RegisterComponent implements OnInit {
       custProv: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(2)]],
       custPostal: ['', [Validators.required, Validators.pattern(this.canadianRegex)]],
       custCountry: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(50)]],
-      custHomePhone: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(15)]],
+      custHomePhone: ['', [Validators.required, Validators.pattern(/^\d{10,15}$/)]],
       custBusPhone: ['', null],
       custEmail: ['', null],
       termsAndConditions: ['', Validators.requiredTrue],
@@ -277,24 +284,30 @@ export class RegisterComponent implements OnInit {
     }, {validator: this.passwordMatchValidator});
   }
 
+  // Custom validator to ensure password fields match
   passwordMatchValidator(match: FormGroup) {
     return match.get('password').value == match.get('confirmPassword').value ? null : {mismatch: true};
   }
 
+  // Shows the terms and conditions, toggles variable
   showTerms() {
     this.termsButtonClicked = !this.termsButtonClicked;
   }
 
+  // Register method if form is valid
   register() {
     if (this.registerForm.valid) {
+      // Builds custgomer from form values
       this.customer = Object.assign({}, this.registerForm.value);
+      // Set customer variables to null if the optional fields are empty
       if (this.customer.custBusPhone == '') {this.customer.custBusPhone = null; }
       if (this.customer.custEmail == '') {this.customer.custEmail = null; }
+      // Run register method in authservice
       this.authService.register(this.customer).subscribe(() => {
         this.alertify.success('Registration successful');
       }, error => {
         this.alertify.error(error);
-      }, () => {
+      }, () => { // Moves customer to booked packages if registration successful
         this.authService.login(this.customer).subscribe(() => {
           this.router.navigate(['/bookedPackages']);
         });
@@ -302,11 +315,13 @@ export class RegisterComponent implements OnInit {
     }
   }
 
+  // Cancels registration (goes to home page)
   cancel() {
     this.cancelRegister.emit(false);
     console.log('cancel');
   }
 
+  // Shows validation notifications
   showValidation() {
 
     let firstNameValid = this.registerForm.get('custFirstName').valid;
@@ -351,10 +366,10 @@ export class RegisterComponent implements OnInit {
         this.alertify.error('Your email is invalid.');
       }
       if (!homePhoneValid) {
-        this.alertify.error('Your home phone is invalid');
+        this.alertify.error('Your home phone is invalid. Must be 10-15 digits');
       }
       if (!busPhoneValid) {
-        this.alertify.error('Your business phone is invalid');
+        this.alertify.error('Your business phone is invalid. Must be 10-15 digits');
       }
       if (!usernameValid) {
         this.alertify.error('Your username is invalid. Please enter a username between 4 and 200 characters.\n');
@@ -375,48 +390,53 @@ export class RegisterComponent implements OnInit {
 
   }
 
+  // Filters available provinces based on selected countries
   filterProvinces() {
     return this.provinces.filter(p => p.country == this.selectedCountry);
   }
 
+  // Resets province value on country selected
   chooseCountry() {
     this.registerForm.controls.custProv.setValue('');
     this.customer.custProv = '';
   }
 
+  // Sets the conditional validators for optional fields and postla code
   setConditionalValidators() {
+    // Reference to control
     const emailControl = this.registerForm.get('custEmail');
     const busPhoneControl = this.registerForm.get('custBusPhone');
     const postalControl = this.registerForm.get('custPostal');
 
+    // When email is filled, set validators, otherwise clear
     this.registerForm.get('custEmail').valueChanges
     .pipe(pairwise())
     .subscribe(([prev, next]: [any, any]) => {
         if (prev != next) {
           if (next != '' && next != null) {
             emailControl.setValidators([Validators.minLength(5), Validators.maxLength(200), Validators.email]);
-          } else {
-            console.log('email clear');
+          } else {            
             emailControl.clearValidators();
             emailControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
           }
         }
       });
 
+      // When business phone is filled, set validators, otherwise clear
     this.registerForm.get('custBusPhone').valueChanges
     .pipe(pairwise())
     .subscribe(([prev, next]: [any, any]) => {
       if (prev != next) {
         if (next != '' && next != null) {
-          busPhoneControl.setValidators([Validators.minLength(10), Validators.maxLength(15)]);
-        } else {
-          console.log('phone clear');
+          busPhoneControl.setValidators([Validators.pattern(/^\d{10,15}$/)]);
+        } else {          
           busPhoneControl.clearValidators();
           busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
         }
     }
     });
 
+    // When country is changed, set postal code validator
     this.registerForm.get('custCountry').valueChanges
     .subscribe((value) => {
       if (this.registerForm.get('custCountry').value == 'Canada') {
@@ -431,6 +451,8 @@ export class RegisterComponent implements OnInit {
 
     });
 
+    // On first initialization, clear validators for email and business phone and update validity
+    // Allows business phone and email to be valid if untouched
     emailControl.clearValidators();
     emailControl.updateValueAndValidity();
     busPhoneControl.clearValidators();

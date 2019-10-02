@@ -1,8 +1,10 @@
+/* Add padding to form and set width */
 #editFormBody{
   padding-top: 5%;
   width: 75%;
 }
 
+/* Make select boxes take available width */
 div.select, select{
   width: -webkit-fill-available;
 }

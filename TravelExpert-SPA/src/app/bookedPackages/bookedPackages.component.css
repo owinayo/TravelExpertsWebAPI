@@ -1,7 +1,9 @@
+/* add padding to body */
 #packageBody{
   padding-top: 5%;
 }
 
+/* Add padding below cost */
 #totalCost{
   padding-bottom: 1%;
 }

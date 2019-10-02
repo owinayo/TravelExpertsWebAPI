@@ -12,6 +12,7 @@ export class TermsAndConditionsComponent implements OnInit {
   ngOnInit() {
   }
 
+  // Hides the modal by removing is-active from class
   hideModal(){
     document.getElementById('termsModal').className="modal";
   }

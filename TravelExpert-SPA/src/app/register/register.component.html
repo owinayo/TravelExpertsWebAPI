@@ -1,6 +1,7 @@
 <section class="section">
   <div class="container">
-    <form id="registerForm" [formGroup]="registerForm" (ngSubmit)="register()" (submit)="showValidation()">
+    <!-- Register form. Runs register() on submit -->
+    <form id="registerForm" [formGroup]="registerForm" (ngSubmit)="register()" >
 
 
       <div class="columns">
@@ -74,12 +75,14 @@
           </div>
         </div>
 
+        <!-- Shows proper label based on selected country -->
         <div class="field column">
           <label *ngIf="selectedCountry=='Canada'" class="label">Province</label>
           <label *ngIf="selectedCountry=='USA'" class="label">State</label>
           <div class="control has-icons-left">
 
             <div class="select">
+              <!-- Shows available provinces based on selected country (using filterProvinces() method) -->
               <select formControlName="custProv" [(ngModel)]="selectedProvince"> Country
                 <option value="" disabled="disabled">Choose Province/State</option>
                 <option *ngFor="let p of filterProvinces()" [value]="p.value">{{p.value}}</option>
@@ -184,15 +187,18 @@
       <div class="field">
         <div class="control">
           <label class="checkbox">
+            <!-- Required checkbox for terms and conditions -->
             <input required formControlName="termsAndConditions" type="checkbox">
             I agree to the <a (click)="showTerms()">terms and conditions</a>
           </label>
         </div>
       </div>
 
+      <!-- Shows terms and conditions if clicked -->
       <app-termsAndConditions *ngIf="termsButtonClicked"></app-termsAndConditions>
 
 
+      <!-- Buttons to register and cancel -->
       <div class="field is-grouped">
         <div class="control">
           <button class="button is-success" type="submit">Register</button>

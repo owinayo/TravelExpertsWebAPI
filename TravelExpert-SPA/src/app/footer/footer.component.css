@@ -1,13 +1,16 @@
+/* colors and pads footer */
 footer.footer {
   background-color: slategrey;
   padding: 1rem 0rem 0.5rem 0rem;
 }
 
+/* colors footer bold text */
 footer.footer strong {
   color: white;
 
 }
 
+/* colors footer icons and scales them */
 i.fa{
   color: white;
   margin-left: 1%;

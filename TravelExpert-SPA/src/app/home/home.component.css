@@ -1,8 +1,9 @@
-
+/* pads home body */
 #homeBody{
   padding-top: 5%;
 }
 
+/* adds padding to empty div if on home page, removed on register page */
 #addPaddingDiv{
   padding-top: 15%;
 }

@@ -12,14 +12,17 @@
         </h2>
       </div>
 
+      <!-- section that only shows if not in register mode -->
       <section class="section" *ngIf="!registerMode">
         <div class="container">
           <div></div>
           <div class="buttons is-centered">
+            <!-- show register button if not logged in -->
             <span *ngIf="!loggedIn()" class="button is-info" (click)="toggleRegisterMode()">Register</span>
           </div>
         </div>
       </section>
+      <!-- show register component if in register mode on home page -->
       <section class="section" *ngIf="registerMode">
           <div class="container">
             <app-register (cancelRegister)="cancelRegisterMode($event)"></app-register>
