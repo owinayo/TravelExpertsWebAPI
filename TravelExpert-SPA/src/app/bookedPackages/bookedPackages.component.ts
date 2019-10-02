@@ -48,6 +48,7 @@ export class BookedPackagesComponent implements OnInit {
 
   addColumnFormatting() {
     const cards = document.getElementsByClassName('column');
+    if(cards.length===0){return;}
     const parent = cards[0].parentElement;
     let columnCounter = 3;
     let columnsElement;

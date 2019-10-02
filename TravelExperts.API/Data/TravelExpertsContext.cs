@@ -5,6 +5,7 @@ using TravelExperts.API.Model;
 
 namespace TravelExperts.API.Data
 {
+    // Context to access travel experts db
     public partial class TravelExpertsContext : DbContext
     {
         public TravelExpertsContext()

@@ -13,13 +13,16 @@ using TravelExperts.API.Model;
 
 namespace TravelExperts.API.Controllers
 {
+    // Ensures that we are authorized to access this controllers function
     [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly ITravelExpertsRepository repo;
-        private readonly IMapper mapper;
+        private readonly ITravelExpertsRepository repo; // Repository to access travel experts DB CRUD methods
+        private readonly IMapper mapper; // Auto mapper to transform DTO class to model class and vice versa
+
+        // Creates controller
         public CustomersController(ITravelExpertsRepository repo, IMapper mapper)
         {
             this.mapper = mapper;
@@ -27,54 +30,55 @@ namespace TravelExperts.API.Controllers
         }
 
 
-        // GET api/customers/5
-        
+        // Returns customer details dto for the given customer id
+        // GET api/customers/5        
         [HttpGet("{id}", Name="GetCustomer")]
         public async Task<IActionResult> GetCustomer(int id)
         {
-            var customer = await this.repo.GetCustomer(id);
+            var customer = await this.repo.GetCustomer(id); // Asks db to get customer based on id
 
-            var customerToReturn = mapper.Map<CustomerForUpdateDto>(customer);
+            var customerToReturn = mapper.Map<CustomerForUpdateDto>(customer); // Maps customer model to dto
 
-            return Ok(customerToReturn);
+            return Ok(customerToReturn); // Returns ok request code with the customer to return dto
         }
 
-        // POST api/values
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
+        // Updates customer given id and update dto(this does not contain id)
         // PUT api/values/5
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCustomer(int id, CustomerForUpdateDto customerForUpdateDto)
         {
+            // Checks that the id is for the currently logged in customer, otherwise unauthorized
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
                 return Unauthorized();
             }
 
-            var customerFromRepo = await repo.GetCustomer(id);
+            var customerFromRepo = await repo.GetCustomer(id); // Returns customer reference in db with the same id
 
-            mapper.Map(customerForUpdateDto, customerFromRepo);
+            mapper.Map(customerForUpdateDto, customerFromRepo); // Pushes all updated properties to customer reference in db
+            // Tries to save changes
             if (await repo.SaveAll()){
                 return NoContent();
             }
 
+            // If unsucessful, throw exception that we failed to save
             throw new Exception($"Updating user {id} failed on save");
         }
 
+        // Gets the booked packages for the given customer id
         [HttpGet("bookedPackages/{id}")]
         public async Task<IActionResult> GetBookedPackagesByCustomerId(int id){
 
-            Console.WriteLine(int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value));
-
+            // Checks that the id is for the currently logged in customer, otherwise unauthorized
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){
                 return Unauthorized();
             } 
 
+            // Gets the booked packages for the current customer
             List<BookedPackages> bookingsForCustomer = repo.GetBookedPackagesByCustomer(id);
 
+            // Builds bookedpackage dto list since automapper is unable to
             List<BookedPackageDetailsDto> bookedPackagesToReturn = new List<BookedPackageDetailsDto>(); 
+          
             foreach (BookedPackages b in bookingsForCustomer){
                 bookedPackagesToReturn.Add(new BookedPackageDetailsDto{
                     BookingDate = b.BookingDate,
@@ -88,7 +92,7 @@ namespace TravelExperts.API.Controllers
                 });
             }
 
-
+            // Returns list to website
             return Ok(bookedPackagesToReturn);
 
         }

@@ -35,13 +35,17 @@ namespace TravelExperts.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Adds db context and server string to api
             services.AddDbContext<TravelExpertsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
+            // Adds auto mapper
             services.AddAutoMapper(typeof(TravelExpertsRepository).Assembly);
+            // Adds repositories to services
             services.AddScoped<IAuthRepository, AuthRepository>();
             services.AddScoped<ITravelExpertsRepository, TravelExpertsRepository>();
+            // Adds authentication info
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(
                 options => {
                     options.TokenValidationParameters = new TokenValidationParameters{

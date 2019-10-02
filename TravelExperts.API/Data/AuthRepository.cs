@@ -7,18 +7,18 @@ using TravelExperts.API.Model;
 
 namespace TravelExperts.API.Data {
     public class AuthRepository: IAuthRepository {
-        private readonly TravelExpertsContext context;
+        private readonly TravelExpertsContext context; // db context
         public AuthRepository(TravelExpertsContext context) {
             this.context = context;
         }
 
         // checks that customer exists in db
         public async Task < bool > CustomerExists(string username) {
-            var customerExists = await context.Customers.AnyAsync(x => x.Username==username);
+            var customerExists = await context.Customers.AnyAsync(x => x.Username==username); // checks if username already exists
             return customerExists;
         }
 
-        // Processes customer login, null if unsuccessful
+        // Processes customer login, returns customer, null if unsuccessful
         public async Task < Customers > Login(string username, string password) {
             var customer = await context.Customers.FirstOrDefaultAsync(x => x.Username==username); // Looks for customer with same user
             // return null if not found
@@ -33,9 +33,10 @@ namespace TravelExperts.API.Data {
             return customer;            
         }
 
+        // Registers customer given customer model and password
         public async Task < Customers > Register(Customers customer, string password) {
-            byte[] passwordSalt;
-            byte[] passwordHash;
+            byte[] passwordSalt; // stores password salt
+            byte[] passwordHash; // stores password hash
 
             // Generates hash and salt from password
             CreatePasswordHash(password, out passwordHash, out passwordSalt);
@@ -48,11 +49,11 @@ namespace TravelExperts.API.Data {
             await context.Customers.AddAsync(customer);
             await context.SaveChangesAsync();
 
-            return customer;
+            return customer; // returns registered customer
 
         }
 
-        // Verifies password against hashed pword and salt
+        // Verifies password against hashed password and salt
         private bool VerifyPasswordHash(string password, string passwordHash, string passwordSalt)
         {
             byte[] salt = Convert.FromBase64String(passwordSalt);
@@ -68,7 +69,7 @@ namespace TravelExperts.API.Data {
                     return false;
                 }
             }
-            return true;
+            return true; // Returns true if no checks fail
         }
 
         

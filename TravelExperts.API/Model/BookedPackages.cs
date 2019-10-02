@@ -3,6 +3,7 @@ using System.Collections.Generic;
 
 namespace TravelExperts.API.Model
 {
+    // Custom class that holds booking details information and booking date
     public partial class BookedPackages
     {
         public BookedPackages()
@@ -11,6 +12,7 @@ namespace TravelExperts.API.Model
             PackagesProductsSuppliers = new HashSet<PackagesProductsSuppliers>();
         }
 
+        // All package info and booking date from Bookings table
         public DateTime? BookingDate { get; set; }
         public int PackageId { get; set; }
         public string PkgName { get; set; }

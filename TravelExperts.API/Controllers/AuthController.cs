@@ -19,11 +19,11 @@ namespace TravelExperts.API.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository repo;
-        private readonly IConfiguration config;
+        private readonly IAuthRepository repo; // Repository that holds methods for authorization functions
+        private readonly IConfiguration config; // Config gets reference to token
+        private readonly IMapper mapper; // Auto mapper to transform one class to another
 
-        private readonly IMapper mapper;
-
+        // Default constructor that initializes all required files
         public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
         {
             this.mapper = mapper;
@@ -31,6 +31,7 @@ namespace TravelExperts.API.Controllers
             this.repo = repo;
         }
 
+        // Handles post request to register
         [HttpPost("register")]
         public async Task<IActionResult> Register(CustomerForRegisterDto customerForRegisterDto)
         {
@@ -38,21 +39,26 @@ namespace TravelExperts.API.Controllers
             // Makes username lowercase
             customerForRegisterDto.Username = customerForRegisterDto.Username.ToLower();
 
+            // Returns error if customer's username already exists in db
             if (await repo.CustomerExists(customerForRegisterDto.Username))
             {
                 return BadRequest("Username already exists");
             }
 
-            // Creates a customer with login and attempts to register customer
+            // Converts dto to the DB Customer model class
             var customerToCreate = this.mapper.Map<Customers>(customerForRegisterDto);
 
+            // Runs the register method and returns the created user
             var createdUser = await repo.Register(customerToCreate, customerForRegisterDto.Password);
 
+            // Maps the created user to an update DTO (for edit profile)
             var customerToReturn = mapper.Map<CustomerForUpdateDto>(createdUser);
 
+            // Routing middleware to get the new customer details (from Customer controller GetCustomer with supplied id)
             return CreatedAtRoute("GetCustomer", new {controller="Customers", id=createdUser.CustomerId}, customerToReturn);
         }
 
+        // Handles login requests from customer for login dtos
         [HttpPost("login")]
         public async Task<IActionResult> Login(CustomerForLoginDto customerForLoginDto)
         {

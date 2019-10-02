@@ -12,6 +12,7 @@ namespace TravelExperts.API.Model
             CustomersRewards = new HashSet<CustomersRewards>();
         }
 
+        // From EF, all properties as used in DB
         public int CustomerId { get; set; }
         public string CustFirstName { get; set; }
         public string CustLastName { get; set; }

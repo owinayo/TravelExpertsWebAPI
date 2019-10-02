@@ -9,37 +9,56 @@ namespace TravelExperts.API.Data
 {
     public class TravelExpertsRepository : ITravelExpertsRepository
     {
-        private TravelExpertsContext context;
+        private TravelExpertsContext context; // db context
 
+        // Initialize context on construct
         public TravelExpertsRepository(TravelExpertsContext context){
             this.context = context;
         }
+
+        // Adds given class to db
         public void Add<T>(T entity) where T : class
         {
             context.Add(entity);
         }
 
+        // Deletes given class from db
         public void Delete<T>(T entity) where T : class
         {
             context.Remove(entity);            
         }
 
+        // Edits the customer given the old customer and new customer
         public async Task<Customers> EditCustomer(Customers oldCustomer, Customers newCustomer)
         {
-            var oldCustomerFromDB = await context.Customers.Where(c => c.CustomerId == oldCustomer.CustomerId).FirstOrDefaultAsync();
-            oldCustomerFromDB = newCustomer;
-            await context.SaveChangesAsync();
-            return oldCustomerFromDB;
+            // Gets old customer from db, ensures that customer has not been changed
+            var oldCustomerFromDB = await context.Customers
+            .Where(c => 
+            (c.CustomerId == oldCustomer.CustomerId) &&
+            (c.CustAddress == oldCustomer.CustAddress) &&
+            (c.CustCity == oldCustomer.CustCity) &&
+            (c.CustCountry == oldCustomer.CustCountry) &&
+            (c.CustFirstName == oldCustomer.CustFirstName) &&
+            (c.CustLastName == oldCustomer.CustLastName) && 
+            (c.CustPostal == oldCustomer.CustPostal) &&
+            (c.CustProv == oldCustomer.CustProv)             
+            ).FirstOrDefaultAsync();
+            oldCustomerFromDB = newCustomer; // Assigns new customer to old customer
+            await context.SaveChangesAsync(); // Saves changes
+            return oldCustomerFromDB; // Returns customer from db
         }
 
+        // Gets all packages from db as a list
         public async Task<IEnumerable<Packages>> GetAllAvailablePackages()
         {
             var packages = await context.Packages.ToListAsync();
             return packages;
         }
 
+        // Gets the booked packages by customer id
         public List<BookedPackages> GetBookedPackagesByCustomer(int customerId)
         {
+            // Selects package details and booking date for the given customer (based on id)
             var packages = 
             (from c in context.Customers
             join b in context.Bookings on c.CustomerId equals b.CustomerId
@@ -49,6 +68,7 @@ namespace TravelExperts.API.Data
             p.PkgStartDate, p.PkgEndDate, p.PkgDesc, p.PkgBasePrice, p.PkgAgencyCommission});
             Console.WriteLine("here"); 
 
+            // Builds the list of booked packages from the query information
             List<BookedPackages> bookedPackagesList = new List<BookedPackages>();
             foreach(var package in packages){
                 bookedPackagesList.Add(new BookedPackages{
@@ -63,41 +83,21 @@ namespace TravelExperts.API.Data
                     PkgBasePrice = package.PkgBasePrice,
                     PkgAgencyCommission = package.PkgAgencyCommission
                 });
-                Console.WriteLine("here2");                
+                                
             }
                 
-            return bookedPackagesList;
-            
-            /*
-            Task<List<BookedPackages>> task = new Task<List<BookedPackages>>(()=>{
-                List<BookedPackages> bookedPackagesList = new List<BookedPackages>();
-                foreach(var package in packages){
-                    bookedPackagesList.Add(new BookedPackages{
-                        BookingDate = package.BookingDate,
-                        PackageId = package.PackageId,
-                        PkgName = package.PkgName,
-                        Image = package.Image,
-                        AirfairInclusion = package.AirfairInclusion,
-                        PkgStartDate = package.PkgStartDate,
-                        PkgEndDate = package.PkgEndDate,
-                        PkgDesc = package.PkgDesc,
-                        PkgBasePrice = package.PkgBasePrice,
-                        PkgAgencyCommission = package.PkgAgencyCommission
-                    });
-                    Console.WriteLine("here2");                
-                }
-                return bookedPackagesList;
-            });
-            */
-            
+            return bookedPackagesList; // returns list   
+                       
         }
 
+        // Gets the customer based on id
         public async Task<Customers> GetCustomer(int id)
         {
             var customer = await this.context.Customers.FirstOrDefaultAsync(c => c.CustomerId == id);
             return customer;
         }
 
+        // Saves all changes in db
         public async Task<bool> SaveAll()
         {
             return await context.SaveChangesAsync() > 0;
