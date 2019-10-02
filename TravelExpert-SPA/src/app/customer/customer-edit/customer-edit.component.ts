@@ -280,8 +280,6 @@ export class CustomerEditComponent implements OnInit {
       }
     });
 
-    this.loadScript('../assets/scripts/customer-edit.component.js');
-
   }
 
   createEditForm() {
@@ -365,16 +363,6 @@ export class CustomerEditComponent implements OnInit {
       });
     }
 
-  }
-
-  public loadScript(url: string) {
-    const body = document.body as HTMLDivElement;
-    const script = document.createElement('script');
-    script.innerHTML = '';
-    script.src = url;
-    script.async = false;
-    script.defer = true;
-    body.appendChild(script);
   }
 
   showValidation() {

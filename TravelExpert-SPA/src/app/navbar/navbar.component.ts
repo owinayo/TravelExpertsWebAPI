@@ -62,7 +62,7 @@ export class NavbarComponent implements OnInit {
   }
 
   addDropDownBehaviour() {
-    var dropdown = document.querySelector('#dropdownNav');
+    const dropdown = document.querySelector('#dropdownNav');
     dropdown.classList.toggle('is-active');
   }
 
@@ -73,16 +73,6 @@ export class NavbarComponent implements OnInit {
   closeDropdown() {
     const dropdown = document.querySelector('#dropdownNav');
     dropdown.classList.toggle('is-active');
-  }
-
-  loadScript(url: string) {
-    const body = document.body as HTMLDivElement;
-    const script = document.createElement('script');
-    script.innerHTML = '';
-    script.src = url;
-    script.async = false;
-    script.defer = true;
-    body.appendChild(script);
   }
 
   toggleMobile() {
