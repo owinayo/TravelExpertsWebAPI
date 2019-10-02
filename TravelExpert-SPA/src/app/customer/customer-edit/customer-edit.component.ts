@@ -374,7 +374,7 @@ export class CustomerEditComponent implements OnInit {
       // If the optional fields are empty, make these null in model
       if (this.customer.custEmail == '') {this.customer.custEmail = null; }
       if (this.customer.custBusPhone == '') {this.customer.custBusPhone = null; }
-      // uses service to update customer 
+      // uses service to update customer
       this.customerService.updateCustomer(this.authService.decodedToken.nameid, this.customer).subscribe(next => {
         this.alertify.success('You have updated your information successfully!');
         this.editForm.reset(this.customer);

@@ -415,7 +415,7 @@ export class RegisterComponent implements OnInit {
         if (prev != next) {
           if (next != '' && next != null) {
             emailControl.setValidators([Validators.minLength(5), Validators.maxLength(200), Validators.email]);
-          } else {            
+          } else {
             emailControl.clearValidators();
             emailControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
           }
@@ -429,7 +429,7 @@ export class RegisterComponent implements OnInit {
       if (prev != next) {
         if (next != '' && next != null) {
           busPhoneControl.setValidators([Validators.pattern(/^\d{10,15}$/)]);
-        } else {          
+        } else {
           busPhoneControl.clearValidators();
           busPhoneControl.updateValueAndValidity({onlySelf: true, emitEvent: false});
         }
