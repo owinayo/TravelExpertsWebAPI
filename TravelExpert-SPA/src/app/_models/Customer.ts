@@ -1,15 +1,15 @@
-export class Customer {
-      customerId: number;
-      custFirstName: string;
-      custLastName: string;
-      custAddress: string;
-      custCity: string;
-      custProv: string;
-      custPostal: string;
-      custCountry: string;
-      custHomePhone: string;
-      custBusPhone: string;
-      custEmail: string;
-      Username: string;
-      AgentId?: number;
+export class Customer { // Customer information (available to user for editing)
+      customerId: number; // Customer id
+      custFirstName: string; // First name
+      custLastName: string; // Last name
+      custAddress: string; // Address
+      custCity: string; // City
+      custProv: string; // Province
+      custPostal: string; // Postal code
+      custCountry: string; // Country
+      custHomePhone: string; // Home phone #
+      custBusPhone: string; // Business phone # (optional)
+      custEmail: string; // Email (optional)
+      Username: string; // Username
+      AgentId?: number; // Agent id if assigned
 }

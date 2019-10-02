@@ -1,12 +1,12 @@
-export class BookedPackage {
+export class BookedPackage { // Class that holds booked package details
 
-  BookingDate: Date;
-  PkgName: string;
-  Image;
-  Partner: string;
-  PkgStartDate: Date;
-  PkgEndDate: Date;
-  PkgDesc: string;
-  PkgBasePrice: number;
+  BookingDate: Date; // Date on which package is booked
+  PkgName: string; // Package name
+  Image; // Imge as base 64 string
+  Partner: string; // Partner url (currently not shown)
+  PkgStartDate: Date; // Package start date
+  PkgEndDate: Date; // Package end date
+  PkgDesc: string; // Package description
+  PkgBasePrice: number; // Package price
 
 }

@@ -63,6 +63,7 @@ export class NavbarComponent implements OnInit {
 
   addDropDownBehaviour() {
     const dropdown = document.querySelector('#dropdownNav');
+    if(dropdown == null){return;}
     dropdown.classList.toggle('is-active');
   }
 

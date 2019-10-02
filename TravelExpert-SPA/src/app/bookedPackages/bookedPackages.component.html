@@ -1,12 +1,15 @@
 <div class="">
   <section class="hero is-large is-primary has-background">
     <div id="packageBody" class="hero-body">
+      <!-- Displays booked packages and total cost -->
       <strong ><p id = "totalCost" class="is-size-1 has-text-centered has-text-link">Booked Packages</p></strong>
       <strong><p id = "totalCost" class="is-size-3 has-text-white">Total Cost Owing: ${{totalCost.toLocaleString('en-US')}}</p></strong>
+      <!-- For loop that creates cards based on retrieved packages -->
       <div *ngFor="let package of packages" class="column">
         <div class="card">
           <div class="card-image">
             <figure class="image is-4by3">
+              <!-- Image sanitized by safe html pipe -->
               <img [src]="'data:image/jpg;base64,'+package.image | SafeHtmlImage" alt="Placeholder image">
             </figure>
           </div>
@@ -36,5 +39,5 @@
 </div>
 
 <p class="footerFit">
-  bookedPackages works!
+
 </p>

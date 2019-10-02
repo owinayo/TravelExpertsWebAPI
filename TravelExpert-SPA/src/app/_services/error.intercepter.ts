@@ -3,6 +3,7 @@ import { HttpInterceptor, HttpErrorResponse, HTTP_INTERCEPTORS } from '@angular/
 import { catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
 
+// Intercepts any errors and throws an exception. Standard angular code
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor
 {

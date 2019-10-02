@@ -4,12 +4,14 @@
 @import '../node_modules/alertifyjs/build/css/alertify.min.css';
 @import '../node_modules/alertifyjs/build/css/themes/default.min.css';
 
+/* makes document take full height */
 html,.footerFit {
   position: relative;
   min-height: 100%;
   padding-top:20px;
 }
 
+/* places footer on bottom of page */
 .footer{
   position: absolute;
   bottom: 0;
@@ -18,12 +20,13 @@ html,.footerFit {
   padding-bottom: 0px;
 }
 
-
+/* formats hero to work with backgrounds */
 .hero.has-background {
   position: relative;
   overflow: hidden;
-
 }
+
+/* Formats the background for the hero */
 .hero-background {
   position: absolute;
   object-fit: cover;
@@ -31,10 +34,13 @@ html,.footerFit {
   width: 100%;
   height: 100%;
 }
+
+/* Sets opacity for transparent backgrounds */
 .hero-background.is-transparent {
   opacity: 0.3;
 }
 
+/* Ensures hero takes up available space */
 .hero.is-large{
   min-height: 90vh;
  }
