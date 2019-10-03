@@ -103,7 +103,6 @@ export class RegisterComponent implements OnInit {
   // Cancels registration (goes to home page)
   cancel() {
     this.cancelRegister.emit(false);
-    console.log('cancel');
   }
 
   // Shows validation notifications

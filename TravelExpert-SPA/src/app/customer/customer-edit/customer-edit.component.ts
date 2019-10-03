@@ -67,11 +67,9 @@ export class CustomerEditComponent implements OnInit {
 
       // Toggles validator behaviour to initialize fields to empty string if no email or phone is assinged
       if (this.customer.custEmail == null) {
-        this.customer.custEmail = 'rewew';
         this.customer.custEmail = '';
       }
       if (this.customer.custBusPhone == null) {
-        this.customer.custBusPhone = 'rewew';
         this.customer.custBusPhone = '';
       }
     });
