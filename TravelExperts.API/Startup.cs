@@ -32,11 +32,26 @@ namespace TravelExperts.API
 
         public IConfiguration Configuration { get; }
 
+        // configures development services
+        public void ConfigureDevelopmentServices(IServiceCollection services){
+            services.AddDbContext<TravelExpertsContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection"));
+                options.UseLazyLoadingProxies();});
+            ConfigureServices(services);
+        }
+
+        // configures production services
+        public void ConfigureProductionServices(IServiceCollection services){
+            services.AddDbContext<TravelExpertsContext>(options => {
+                options.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection"));
+                options.UseLazyLoadingProxies();});
+            ConfigureServices(services);
+        }
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             // Adds db context and server string to api
-            services.AddDbContext<TravelExpertsContext>(options => options.UseSqlServer(Configuration.GetConnectionString("TravelExpertsDBConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
             .AddJsonOptions(opt => opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             services.AddCors();
@@ -85,8 +100,16 @@ namespace TravelExperts.API
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
             // app.UseHttpsRedirection();
-            app.UseMvc();
+            app.UseMvc(routes =>{ // Set fallback route to fallback controller index action
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new {Controller="Fallback",
+                    Action="Index"}
+                );
+            });
         }
     }
 }
