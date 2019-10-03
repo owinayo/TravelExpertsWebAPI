@@ -74,7 +74,7 @@ namespace TravelExperts.API.Controllers
 
         // Gets the booked packages for the given customer id
         [HttpGet("bookedPackages/{id}")]
-        public async Task<IActionResult> GetBookedPackagesByCustomerId(int id){
+        public IActionResult GetBookedPackagesByCustomerId(int id){
 
             // Checks that the id is for the currently logged in customer, otherwise unauthorized
             if (id != int.Parse(User.FindFirst(ClaimTypes.NameIdentifier).Value)){

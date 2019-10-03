@@ -51,7 +51,7 @@ export class BookedPackagesComponent implements OnInit {
   addColumnFormatting() {
     // Gets cards
     const cards = document.getElementsByClassName('column');
-    if(cards.length===0){return;} // End method if no cards generated
+    if (cards.length === 0) {return; } // End method if no cards generated
 
     // Get parent element div
     const parent = cards[0].parentElement;
