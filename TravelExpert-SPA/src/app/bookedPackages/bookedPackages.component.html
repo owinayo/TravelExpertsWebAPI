@@ -4,6 +4,7 @@
       <!-- Displays booked packages and total cost -->
       <strong ><p id = "totalCost" class="is-size-1 has-text-centered has-text-link">Booked Packages</p></strong>
       <strong><p id = "totalCost" class="is-size-3 has-text-white">Total Cost Owing: ${{totalCost.toLocaleString('en-US')}}</p></strong>
+      <strong><p *ngIf="packages.length==0" class="is-size-4 has-text-white">Currently, you do not have any booked packages.</p></strong>
       <!-- For loop that creates cards based on retrieved packages -->
       <div *ngFor="let package of packages" class="column">
         <div class="card">
@@ -17,7 +18,7 @@
             <div class="media">
 
               <div class="media-content">
-                <p class="title is-4 has-text-primary">{{package.pkgName}}</p>
+                <a href={{package.partner}} target="_blank"><p class="title is-4 has-text-primary">{{package.pkgName}}</p></a>
                 <p class="subtitle is-6 has-text-black"><strong
                     class="has-text-black">{{package.pkgStartDate.toString().substring(0,10)}} -
                     {{package.pkgEndDate.toString().substring(0,10)}}</strong></p>

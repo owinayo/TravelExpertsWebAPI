@@ -101,6 +101,7 @@ namespace TravelExperts.API.Data
                     PackageId = package.PackageId,
                     PkgName = package.PkgName,
                     Image = package.Image,
+                    Partner = package.Partner,
                     AirfairInclusion = package.AirfairInclusion,
                     PkgStartDate = package.PkgStartDate,
                     PkgEndDate = package.PkgEndDate,
