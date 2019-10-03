@@ -22,8 +22,8 @@ export class CustomerService {
   }
 
   // Updates the customer given the customer id and new customer information
-  updateCustomer(id: number, customer: Customer) {
-    return this.http.put(this.baseUrl  + id, customer);
+  updateCustomer(id: number, oldAndNewCustomers: Customer[]  ) {
+    return this.http.put(this.baseUrl  + id, oldAndNewCustomers);
   }
 
   // Gets booked packages for the given customer id
