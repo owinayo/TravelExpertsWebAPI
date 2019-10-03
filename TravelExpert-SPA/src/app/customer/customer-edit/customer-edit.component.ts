@@ -210,7 +210,7 @@ export class CustomerEditComponent implements OnInit {
         this.alertify.error('Province/State must be a 2 letter code');
       }
       if (!postalValid) {
-        this.alertify.error('Your postal/zip code is required or in an incorrect format');
+        this.alertify.error('Your postal/zip code is required. A Canadian Postal Code should be formatted like T1A 1A1 and a US Zip Code should be 5 digits (12345)');
       }
       if (!emailValid) {
         this.alertify.error('Your email is invalid.');

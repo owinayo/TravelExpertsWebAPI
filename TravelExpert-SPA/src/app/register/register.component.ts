@@ -145,7 +145,7 @@ export class RegisterComponent implements OnInit {
         this.alertify.error('Province/State must be a 2 letter code');
       }
       if (!postalValid) {
-        this.alertify.error('Your postal/zip code is required or in an incorrect format');
+        this.alertify.error('Your postal/zip code is required. A Canadian Postal Code should be formatted like T1A 1A1 and a US Zip Code should be 5 digits (12345) ');
       }
       if (!emailValid) {
         this.alertify.error('Your email is invalid.');
@@ -186,7 +186,7 @@ export class RegisterComponent implements OnInit {
     this.customer.custProv = '';
   }
 
-  // Sets the conditional validators for optional fields and postla code
+  // Sets the conditional validators for optional fields and postal code
   setConditionalValidators() {
     // Reference to control
     const emailControl = this.registerForm.get('custEmail');
