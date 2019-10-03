@@ -89,7 +89,7 @@ namespace TravelExperts.API.Data
                  p.PkgBasePrice,
                  p.PkgAgencyCommission
              });
-            Console.WriteLine("here");
+            
 
             // Builds the list of booked packages from the query information
             List<BookedPackages> bookedPackagesList = new List<BookedPackages>();
