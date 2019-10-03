@@ -95,14 +95,16 @@ namespace TravelExperts.API
                     });
                 });
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                // app.UseHsts();
+                app.UseHsts();
             }
+
+            app.UseHttpsRedirection();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             app.UseAuthentication();
             app.UseDefaultFiles();
             app.UseStaticFiles();
-            // app.UseHttpsRedirection();
+            
             app.UseMvc(routes =>{ // Set fallback route to fallback controller index action
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
